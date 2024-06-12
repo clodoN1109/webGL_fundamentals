@@ -1,0 +1,12 @@
+{
+    "name": "webgl_motion_and_color",
+    "scripts": {
+        "build": "tsc --watch"
+    },
+    "dependencies": {
+        "typescript": "^5.4.5"
+    },
+    "compilerOptions": {
+        "target": "es6"
+    }
+}
