@@ -1,5 +1,6 @@
 # WebGL Fundamentals Exercises
 ### Series of exercises on webGL fundamentals
+Based on `Indigo Code`'s articles and videos on WebGL: https://indigocode.dev/tutorials/webgl | https://www.youtube.com/@IndigoCode
 
 ## Shapes
 
