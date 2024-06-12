@@ -3,11 +3,12 @@
 
 ## Shapes
 
-![Vídeo sem título (1)](https://github.com/clodoN1109/webGL_fundamentals_exercises/assets/104923248/3822bdcd-895e-42b0-a144-11e967bd4398)
+![Shapes](https://github.com/clodoN1109/webGL_fundamentals_exercises/assets/104923248/3822bdcd-895e-42b0-a144-11e967bd4398)
 
 ## Motion and Color
-   
-![Vídeo sem título (1)](https://github.com/clodoN1109/webGL_fundamentals_exercises/assets/104923248/7388c243-d9d5-4b76-9bff-2460e044360b)
+
+![ezgif com-animated-gif-maker](https://github.com/clodoN1109/webGL_fundamentals_exercises/assets/104923248/6b7f4df1-4756-4ca3-91cc-3c66bfd3e6b9)
+
 
 ## 3D Fundamentals
 
