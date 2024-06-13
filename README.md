@@ -18,4 +18,11 @@ https://indigocode.dev/tutorials/webgl | https://www.youtube.com/@IndigoCode
 ## 3D Fundamentals
 
 
+# Recommended resources on WebGL
+
+- https://webgl2fundamentals.org/
+- https://www.scratchapixel.com/
+- https://indigocode.dev/tutorials/webgl
+- https://www.youtube.com/@IndigoCode
+- https://www.youtube.com/watch?v=f-9LEoYYvE4
 
