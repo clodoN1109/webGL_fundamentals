@@ -7,10 +7,10 @@
 
 
 
-### Exercises on webGL fundamentals
-Based on `Indigo Code`'s articles and videos on WebGL:
 
-https://indigocode.dev/tutorials/webgl | https://www.youtube.com/@IndigoCode
+Based on `Indigo Code`'s source code, articles and videos on WebGL:
+
+https://indigocode.dev/tutorials/webgl | https://www.youtube.com/@IndigoCode | https://github.com/sessamekesh/webgl-tutorials-2023
 
 ##
 
