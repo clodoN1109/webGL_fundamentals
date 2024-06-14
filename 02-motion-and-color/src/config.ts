@@ -17,4 +17,4 @@ export let config = {
     OFFSET_X: window.innerWidth/2,
     OFFSET_Y: window.innerHeight/2,
     SCALE: 500,
-} 
+}  

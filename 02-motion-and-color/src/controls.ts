@@ -75,7 +75,7 @@ let playOrPauseAnimation = function(button_image) {
         button_image.src = './assets/play.png';
         Main.animationStatus[0] = 'play';
     }
-}
+} 
 
 export let createEventListeners = () => {
 

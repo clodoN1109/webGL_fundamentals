@@ -1,5 +1,4 @@
 import * as Config from "./config.js";
-import * as utils from "./utils.js";
 import {VAO, shapeParameters} from "./custom-types.js";
 
 // Utils
@@ -12,7 +11,7 @@ export function showError(errorText: string) {
     if (errorBoxDiv === null){
         return;
     }
-
+ 
     const errorElement = document.getElementById('error-description');
     errorElement.innerHTML = errorText;
 }

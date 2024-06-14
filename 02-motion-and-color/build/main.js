@@ -3,6 +3,7 @@ import * as Config from "./config.js";
 import * as Controls from "./controls.js";
 //---------------------------------------------------------------------------------
 Controls.createEventListeners();
+//---------------------------------------------------------------------------------
 // Defining shapes
 export let triangleVertices = new Float32Array([-0.5, -0.5, 0.5, -0.5, 0, 0.5]);
 export let squareVertices = new Float32Array([-1 / 3, 1 / 3, -1 / 3, -1 / 3, 1 / 3, -1 / 3, -1 / 3, 1 / 3, 1 / 3, -1 / 3, 1 / 3, 1 / 3]);
@@ -91,8 +92,8 @@ export function motionAndColor(width, height, scale, offsetX, offsetY) {
     }
     //---------------------------------------------------------------------------------
     // Creating a program
-    const vertexShaderSourceCode = utils.stringfyGLSL('vertexShader');
-    const fragmentShaderSourceCode = utils.stringfyGLSL('fragmentShader');
+    const vertexShaderSourceCode = utils.stringfyGLSL('../src/vertexShader');
+    const fragmentShaderSourceCode = utils.stringfyGLSL('../src/fragmentShader');
     const webGL2TriangleProgram = utils.createProgram(webGL2, vertexShaderSourceCode, fragmentShaderSourceCode);
     //---------------------------------------------------------------------------------
     // Getting references/links to program attributes 
