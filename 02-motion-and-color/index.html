@@ -11,27 +11,80 @@
         </div>
 
         <div id="control-box">
+
             <span class="control-box-title">Controls:</span>
+
+            <button><img id="play-pause-button" src="./assets/play.png" data-state="playing" alt="play-pause"></button>   
+
+            <div class="parameter-controler">
+                <div style="display: inline-flex; justify-content: center; align-items: center; gap: 10px; margin: 8px;">
+                      
+                    <div style="display: flex; flex-direction: column;">
+                        
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">SPAWN TIME</span> 
+                            <input id="SPAWN_TIME" type="number" min="0.00" max="2.00" value="1.00" step="0.005" class="argument-input">                
+                        </div>
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">MAX COUNT</span> 
+                            <input id="MAX_COUNT" type="number" min="0" max="1000" value="250" step="1" class="argument-input">                
+                        </div>
+
+                        <div class="parameters-header">
+                            <span class="control-description" style="color: rgba(208, 195, 18, 0);">placeholder</span> 
+                            <div class="vertex-coordinate">MIN</div>
+                            <div class="vertex-coordinate">MAX</div>                         
+                        </div>
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">LIFESPAN</span> 
+                            <input id="MIN_SHAPE_TIME" type="number" min="0.00" max="10.00" value="2.00" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_TIME" type="number" min="0.00" max="10.00" value="6.00" step="0.05" class="argument-input">                
+                        </div>
+                        
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">SIZE</span> 
+                            <input id="MIN_SHAPE_SIZE" type="number" min="0.01" max="3.00" value="0.10" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_SIZE" type="number" min="0.02" max="3.00" value="2.00" step="0.05" class="argument-input">                
+                        </div>
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">FORCE</span> 
+                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1000" value="150" step="5" class="argument-input">                
+                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1000" value="750" step="5" class="argument-input">                
+                        </div>
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">SPEED</span> 
+                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="1000" value="125" step="5" class="argument-input">                
+                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="1000" value="350" step="5" class="argument-input">                
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
             
             <div class="parameter-controler">
                 <span class="control-description" style="color: blue;">Canvas Width</span>   
-                <input onchange="{updateCanvasSize(event.target.value, undefined)}" type="range" min="0" max="100" value="100" class="">
+                <input id="canvas-width" type="range" min="0" max="100" value="100" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: blue;">Canvas Height</span>      
-                <input onchange="{updateCanvasSize(undefined, event.target.value)}" type="range" min="0" max="100" value="100" class="">
+                <input id="canvas-height" type="range" min="0" max="100" value="100" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 106, 34);">X Offset</span>   
-                <input onchange="{updateOffsetX(event.target.value)}" type="range" min="0" max="100" value="50" class="">
+                <input id="offsetX" type="range" min="0" max="100" value="50" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 106, 34);">Y Offset</span>      
-                <input onchange="{updateOffsetY(event.target.value)}" type="range" min="0" max="100" value="50" class="">
+                <input id="offsetY" type="range" min="0" max="100" value="50" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 51, 34);">Scale</span>      
-                <input onchange="{updateScale(event.target.value)}" type="range" min="0" max="1000" value="500" class="">
+                <input id="scale" type="range" min="0" max="1000" value="500" class="">
             </div>
 
         </div>
@@ -48,6 +101,6 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="index.js"></script>
+        <script type="module" src="main.js"></script>
     </body>   
 </html>
