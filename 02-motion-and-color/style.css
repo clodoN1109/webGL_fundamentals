@@ -15,7 +15,7 @@ html, body {
 
 }
 
-.canvas-container {
+#canvas-container {
 
     width: 100vw;
     height: 100vh;
@@ -31,7 +31,7 @@ html, body {
 #demo-canvas {
 
     border: 4px solid #175fdb;
-
+    
     margin: 0;
     padding: 0;
 
@@ -51,7 +51,11 @@ html, body {
     max-width: 100%;
     min-width: 200px;
 
-    overflow-x: auto;
+    height: max-content;
+    max-height: 60vh;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     background-color: #3d3535d6;
 
@@ -65,11 +69,22 @@ html, body {
 
 .control-description {
     width: max-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .control-box-title {
-    color: #eee;
+
+    width: 100%;
+
     margin: 10px 10px 20px 10px;
+
+    text-align: center;
+
+    font-size: 18px;
+    color: #eee;
 }
 
 .parameter-controler {
@@ -123,7 +138,7 @@ html, body {
     flex-direction: column;
 
     bottom: 40px;
-    right: 40px;
+    left: 50vw;
 
     width: max-content;
     max-width: 100%;
@@ -178,12 +193,24 @@ html, body {
     margin: 5px 0;
 }
 
+.parameters p {
+    margin: 0;
+}
+
+.parameter-units {
+
+    width: 100%;
+
+    text-align: center;
+    color: #db1758ac;
+}
+
 button {
 
     width: 35px; 
     height: 35px; 
     padding: 0; 
-    margin: 0; 
+    margin: 20px 0; 
 
     display: inline-flex;
     justify-content: center;
@@ -204,3 +231,130 @@ button img {
     padding: 0;
     margin: 0;
 }
+
+.range-current-value {
+
+    width: 100%;
+    padding-bottom: 15px;
+
+    display: inline-flex;
+    justify-content: center;
+    gap: 30px;
+
+    font-weight: 300;
+}
+
+#objects-box {
+    
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    top: 40px;
+    bottom: 40px;
+    right: 40px;
+
+    width: 20vw;
+
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    background-color: #3d3535d6;
+
+    color: #e6e6e6;
+    font-weight: 500;
+    font-size: 10pt;
+    border: 1px solid white;
+    padding: 30px 3vw;
+    margin: 2px;
+}
+
+#objects-list {
+    width: 100%;
+    height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    padding: 0;
+}
+
+.objects-list-item {
+    
+    margin: 15px 5px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgba(198, 198, 198, 0.164);
+    font-weight: 500;
+}
+
+.objects-list-item:hover {
+    
+    font-weight: 900;
+    background-color: rgb(198, 198, 198);
+    color: rgb(60, 60, 60);
+
+}
+
+#object-info-list {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 0;
+}
+
+.object-info {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.objects-info-value {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    max-width: 100%;
+    min-height: 20px;
+    padding-left: 20px;
+
+    overflow-x: hidden;
+
+
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 5px;
+    background-color: rgb(56, 56, 56);
+
+}
+
+#bounding-box-selected {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: dashed;
+    border-width: 3px;
+    border-color: #db1758;
+}    
+
+#bounding-box-mouseover {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: dashed;
+    border-width: 3px;
+    border-color: #4f17db;
+}    

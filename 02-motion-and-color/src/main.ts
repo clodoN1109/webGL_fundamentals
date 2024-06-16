@@ -6,13 +6,23 @@ import * as Controls from "./controls.js";
 //---------------------------------------------------------------------------------
  
 Controls.createEventListeners();
+
+$('#width-in-pixels').html(String(Config.config.CANVAS_WIDTH) + "px");
+$('#width-proportion').html(String(100) + "%")
+$('#height-in-pixels').html(String(Config.config.CANVAS_HEIGHT) + "px");
+$('#height-proportion').html(String(100) + "%")
+
+//---------------------------------------------------------------------------------
  
+export let interval_ID_UpdateParametersDisplay_List : number[] = [];
+export let interval_ID_UpdateBoundingBox_List : number[] = [];
+
 //---------------------------------------------------------------------------------
 
 // Defining shapes
 
-export let triangleVertices = new Float32Array( [-0.5, -0.5, 0.5, -0.5, 0, 0.5] );
-export let squareVertices = new Float32Array([-1/3, 1/3, -1/3, -1/3, 1/3, -1/3, -1/3, 1/3, 1/3, -1/3, 1/3, 1/3])
+export let triangleVertices = new Float32Array( [-1.0, -1.0, 1.0, -1.0, 0, 1.0] );
+export let squareVertices = new Float32Array([-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1])
 export let circleVertices = function buildCircleVertexBuffer() {
 
     const vertexData = [];
@@ -24,11 +34,11 @@ export let circleVertices = function buildCircleVertexBuffer() {
         const vertex1Angle = i * angle_increment;
         const vertex2Angle = (i + 1) * angle_increment;
         
-        const x1 = Math.cos(vertex1Angle)/3;
-        const y1 = Math.sin(vertex1Angle)/3;
+        const x1 = Math.cos(vertex1Angle);
+        const y1 = Math.sin(vertex1Angle);
 
-        const x2 = Math.cos(vertex2Angle)/3;
-        const y2 = Math.sin(vertex2Angle)/3;
+        const x2 = Math.cos(vertex2Angle);
+        const y2 = Math.sin(vertex2Angle);
 
         vertexData.push(
             0, 0, 
@@ -90,8 +100,40 @@ const graySquareColors = new Uint8Array([
 
 export let animationID = NaN;
 export let animationStatus = ['play'];
+// Defining a Moving Object
 
-export function motionAndColor(width, height, scale, offsetX, offsetY) {
+export class MovingShape {
+    constructor (
+        public position: [number, number],
+        public velocity: [number,number],
+        public size: number,
+        public timeRemaining: number,
+        public vao: WebGLVertexArrayObject,
+        public numVertices: number,
+        public force: [number, number],
+        public id: number,
+        
+    ) {}
+
+    isAlive() {
+        return this.timeRemaining > 0;
+    }
+
+    update(dt: number) {
+
+        this.velocity[0] += this.force[0] * dt;
+        this.velocity[1] += this.force[1] * dt;
+
+        this.position[0] += this.velocity[0] * dt;
+        this.position[1] += this.velocity[1] * dt;
+
+        this.timeRemaining -= dt;
+
+    }
+
+}
+
+export function motionAndColor(width, height) {
     
     const canvas = document.getElementById('demo-canvas');
     if (!(canvas instanceof HTMLCanvasElement)) {
@@ -100,46 +142,6 @@ export function motionAndColor(width, height, scale, offsetX, offsetY) {
     }
 
     let webGL2 = canvas.getContext('webgl2');
-
-    //---------------------------------------------------------------------------------
-
-    // Defining a Moving Object
-
-    class MovingShape {
-        constructor (
-            public position: [number, number],
-            public velocity: [number,number],
-            public size: number,
-            public timeRemaining: number,
-            public vao: WebGLVertexArrayObject,
-            public numVertices: number,
-            public force: [number, number],
-            
-        ) {}
-
-        isAlive() {
-            return this.timeRemaining > 0;
-        }
-
-        update(dt: number) {
- 
-            this.velocity[0] += this.force[0] * dt;
-            this.velocity[1] += this.force[1] * dt;
-
-            this.position[0] += this.velocity[0] * dt;
-            this.position[1] += this.velocity[1] * dt;
-
-            this.timeRemaining -= dt;
-
-        }
-
-        reset() {
-            this.position[0] = offsetX;
-            this.position[1] = offsetY;
-        }
-
-        
-    }
 
     //---------------------------------------------------------------------------------
                                     
@@ -217,14 +219,23 @@ export function motionAndColor(width, height, scale, offsetX, offsetY) {
             timetoNextSpawn += Config.config.SPAWN_TIME;
 
             let [position, velocity, size, timeRemaining, vao, numVertices, force] : shapeParameters = utils.generateNewShapeParameters(VAOList); 
+    
+            let new_id =  utils.getRandomIntegerInRange(1, 10000);
+            if (shapes.length < Config.config.MAX_SHAPE_COUNT) {
+                
+                shapes.push(
+                    new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id)
+                );    
+           
+            }
             
-            shapes.push(
-                new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force)
-            );
-
         }       
         // Imposing object count and lifespan limits
-        shapes = shapes.filter((shape) => shape.isAlive()).slice(0, Config.config.MAX_SHAPE_COUNT);
+
+        utils.updateObjectExplorer(shapes);
+        shapes = shapes.filter((shape) => shape.isAlive());
+
+        
          
         lastFrameTime = thisFrameTime;
 
@@ -261,7 +272,7 @@ export function motionAndColor(width, height, scale, offsetX, offsetY) {
 }
 
 try {
-    motionAndColor(window.innerWidth, window.innerHeight, Config.config.SCALE, Config.config.OFFSET_X, Config.config.OFFSET_Y);
+    motionAndColor(window.innerWidth, window.innerHeight);
 }
 catch(e) {
     utils.showError(`Uncaught exception: ${e}`);

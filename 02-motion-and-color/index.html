@@ -6,13 +6,19 @@
     </head>
     
     <body>
-        <div class="canvas-container">
-            <canvas id="demo-canvas"></canvas>
+
+        <div id="canvas-container">
+            <canvas id="demo-canvas">
+            </canvas>
+            <div id="bounding-box-selected"></div>
+            <div id="bounding-box-mouseover"></div>       
         </div>
+
+
 
         <div id="control-box">
 
-            <span class="control-box-title">Controls:</span>
+            <span class="control-box-title">CONTROLS</span>
 
             <button><img id="play-pause-button" src="./assets/play.png" data-state="playing" alt="play-pause"></button>   
 
@@ -22,13 +28,19 @@
                     <div style="display: flex; flex-direction: column;">
                         
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">SPAWN TIME</span> 
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">SPAWN TIME</p> 
+                                <p class="parameter-units">seconds</p> 
+                            </span> 
                             <input id="SPAWN_TIME" type="number" min="0.00" max="2.00" value="1.00" step="0.005" class="argument-input">                
                         </div>
 
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">MAX COUNT</span> 
-                            <input id="MAX_COUNT" type="number" min="0" max="1000" value="250" step="1" class="argument-input">                
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">MAX COUNT</p> 
+                                <p class="parameter-units">shapes</p> 
+                            </span>                             
+                            <input id="MAX_SHAPE_COUNT" type="number" min="0" max="1000" value="25" step="1" class="argument-input">                
                         </div>
 
                         <div class="parameters-header">
@@ -38,54 +50,148 @@
                         </div>
 
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">LIFESPAN</span> 
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">LIFESPAN</p> 
+                                <p class="parameter-units">seconds</p> 
+                            </span>                             
                             <input id="MIN_SHAPE_TIME" type="number" min="0.00" max="10.00" value="2.00" step="0.05" class="argument-input">                
                             <input id="MAX_SHAPE_TIME" type="number" min="0.00" max="10.00" value="6.00" step="0.05" class="argument-input">                
                         </div>
                         
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">SIZE</span> 
-                            <input id="MIN_SHAPE_SIZE" type="number" min="0.01" max="3.00" value="0.10" step="0.05" class="argument-input">                
-                            <input id="MAX_SHAPE_SIZE" type="number" min="0.02" max="3.00" value="2.00" step="0.05" class="argument-input">                
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">SIZE</p> 
+                                <p class="parameter-units">pixels</p> 
+                            </span> 
+                            <input id="MIN_SHAPE_SIZE" type="number" min="0.01" max="3.00" value="90" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_SIZE" type="number" min="0.02" max="3.00" value="100" step="0.05" class="argument-input">                
                         </div>
 
                         <div class="parameters">
                             <span class="control-description" style="color: rgb(205, 205, 199);">FORCE</span> 
-                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1000" value="150" step="5" class="argument-input">                
-                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1000" value="750" step="5" class="argument-input">                
+                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
                         </div>
 
                         <div class="parameters">
                             <span class="control-description" style="color: rgb(205, 205, 199);">SPEED</span> 
-                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="1000" value="125" step="5" class="argument-input">                
-                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="1000" value="350" step="5" class="argument-input">                
+                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="5.00" value="0.01" step="0.01" class="argument-input">                
+                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="5.00" value="1.00" step="0.01" class="argument-input">                
                         </div>
 
                     </div>
 
                 </div>
             </div>
+
             
             <div class="parameter-controler">
-                <span class="control-description" style="color: blue;">Canvas Width</span>   
+                <span class="control-description" style="color: rgb(48, 48, 232);">Canvas Width</span>   
                 <input id="canvas-width" type="range" min="0" max="100" value="100" class="">
+                <div class="range-current-value">
+        
+                    <output id="width-in-pixels"></output>
+                    <output id="width-proportion"></output>
+
+                </div>
             </div>
             <div class="parameter-controler">
-                <span class="control-description" style="color: blue;">Canvas Height</span>      
+                <span class="control-description" style="color: rgb(48, 48, 232);">Canvas Height</span>      
                 <input id="canvas-height" type="range" min="0" max="100" value="100" class="">
+                <div class="range-current-value">
+        
+                    <output id="height-in-pixels"></output>
+                    <output id="height-proportion"></output>
+
+                </div>
             </div>
             <div class="parameter-controler">
-                <span class="control-description" style="color: rgb(207, 106, 34);">X Offset</span>   
-                <input id="offsetX" type="range" min="0" max="100" value="50" class="">
+                <span class="control-description" style="color: rgb(207, 106, 34);">X Initial Position</span>   
+                <input id="offsetX" type="range" min="-1.00" max="1.00" value="0.00" step="0.05" class="">
+                <div class="range-current-value">
+        
+                    <output id="origin-x-in-pixels">0px</output>
+                    <output id="origin-x-proportion">0%</output>
+
+                </div>
             </div>
             <div class="parameter-controler">
-                <span class="control-description" style="color: rgb(207, 106, 34);">Y Offset</span>      
-                <input id="offsetY" type="range" min="0" max="100" value="50" class="">
+                <span class="control-description" style="color: rgb(207, 106, 34);">X Initial Position</span>      
+                <input id="offsetY" type="range" min="-1" max="1" value="0" step="0.05" class="">
+                <div class="range-current-value">
+        
+                    <output id="origin-y-in-pixels">0px</output>
+                    <output id="origin-y-proportion">0%</output>
+
+                </div>
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 51, 34);">Scale</span>      
-                <input id="scale" type="range" min="0" max="1000" value="500" class="">
+                <input id="scale" type="range" min="0" max="10" value="1" class="">
+                <div class="range-current-value">
+        
+                    <output id="scale-display-value">1X</output>
+
+                </div>
             </div>
+
+        </div>
+
+        <div id="objects-box">
+
+            <span class="control-box-title">OBJECT EXPLORER</span>
+
+            <ol id="objects-list"></ol>
+            
+            <ul id="object-info-list">
+
+                <div class="object-info">
+                    <div>ID:</div>
+                    <output class="objects-info-value" id="object-id"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Time Remaining:</div>
+                    <output class="objects-info-value" id="object-time-remaining"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Position:</div>
+                    <output class="objects-info-value" id="object-position"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Force:</div>
+                    <output class="objects-info-value" id="object-force"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Speed:</div>
+                    <output class="objects-info-value" id="object-speed"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Size:</div>
+                    <output class="objects-info-value" id="object-size"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Number of Vertices:</div>
+                    <output class="objects-info-value" id="object-vertices"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Vertex Attribute Object:</div>
+                    <output class="objects-info-value" id="object-vao"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Is Alive?</div>
+                    <output class="objects-info-value" id="object-alive"></output>
+                </div>
+
+            </ul>
+
 
         </div>
 
