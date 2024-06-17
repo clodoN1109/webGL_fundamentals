@@ -5,4 +5,4 @@ export type VAO = {
 }
 
 export type shapeParameters = [[number, number], [number, number], number, number, WebGLVertexArrayObject, number, [number, number], string];
-  
+   

@@ -1,15 +1,16 @@
-import * as Config from "./config.js";
+import { config } from "./config.js";
 import * as Main from "./main.js";
 import * as utils from "./utils.js";
+import * as Shapes from "./shapes.js";
 // Control Box functions
 let updateParameterValue = function (parameter_id, new_value) {
-    Config.config[parameter_id] = Number(new_value);
+    config[parameter_id] = Number(new_value);
 };
 let updateTriangle = function (new_value, vertex_number, coordinate_number) {
-    Main.triangleVertices[vertex_number * 2 + coordinate_number] = new_value;
+    Shapes.triangleVertices[vertex_number * 2 + coordinate_number] = new_value;
     try {
         cancelAnimationFrame(Main.animationID);
-        Main.motionAndColor(Config.config.CANVAS_WIDTH, Config.config.CANVAS_HEIGHT);
+        Main.motionDemonstration(config.CANVAS_WIDTH, config.CANVAS_HEIGHT, Main.canvas);
     }
     catch (e) {
         utils.showError(`Uncaught exception: ${e}`);
@@ -25,12 +26,12 @@ export let updateCanvasSize = function (width, height) {
     }
     width = Number(width);
     height = Number(height);
-    Config.config.CANVAS_WIDTH = window.innerWidth * width / 100;
-    Config.config.CANVAS_HEIGHT = window.innerHeight * height / 100;
+    config.CANVAS_WIDTH = window.innerWidth * width / 100;
+    config.CANVAS_HEIGHT = window.innerHeight * height / 100;
     //Update controls displayed value
-    $('#width-in-pixels').html(String(Config.config.CANVAS_WIDTH.toFixed(2)) + "px");
+    $('#width-in-pixels').html(String(config.CANVAS_WIDTH.toFixed(2)) + "px");
     $('#width-proportion').html(String(width.toFixed(0)) + "%");
-    $('#height-in-pixels').html(String(Config.config.CANVAS_HEIGHT.toFixed(2)) + "px");
+    $('#height-in-pixels').html(String(config.CANVAS_HEIGHT.toFixed(2)) + "px");
     $('#height-proportion').html(String(height.toFixed(0)) + "%");
     try {
         Main.interval_ID_UpdateParametersDisplay_List.forEach(intervalID => {
@@ -41,7 +42,7 @@ export let updateCanvasSize = function (width, height) {
         });
         $('#objects-list').empty();
         cancelAnimationFrame(Main.animationID);
-        Main.motionAndColor(Config.config.CANVAS_WIDTH, Config.config.CANVAS_HEIGHT);
+        Main.motionDemonstration(config.CANVAS_WIDTH, config.CANVAS_HEIGHT, Main.canvas);
     }
     catch (e) {
         utils.showError(`Uncaught exception: ${e}`);
@@ -49,21 +50,21 @@ export let updateCanvasSize = function (width, height) {
 };
 let updateOffsetX = function (new_offsetX) {
     new_offsetX = Number(new_offsetX);
-    Config.config.OFFSET_X = new_offsetX;
+    config.OFFSET_X = new_offsetX;
     //Update controls displayed value
-    $('#origin-x-in-pixels').html(String((Config.config.CANVAS_WIDTH / 2 * new_offsetX).toFixed(2)) + "px");
+    $('#origin-x-in-pixels').html(String((config.CANVAS_WIDTH / 2 * new_offsetX).toFixed(2)) + "px");
     $('#origin-x-proportion').html(String((100 / 2 * new_offsetX).toFixed(0)) + "%");
 };
 let updateOffsetY = function (new_offsetY) {
-    Config.config.OFFSET_Y = Number(new_offsetY);
+    config.OFFSET_Y = Number(new_offsetY);
     //Update controls displayed value
-    $('#origin-y-in-pixels').html(String((Config.config.CANVAS_HEIGHT / 2 * new_offsetY).toFixed(2)) + "px");
+    $('#origin-y-in-pixels').html(String((config.CANVAS_HEIGHT / 2 * new_offsetY).toFixed(2)) + "px");
     $('#origin-y-proportion').html(String((100 / 2 * new_offsetY).toFixed(0)) + "%");
 };
 let updateScale = function (new_scale) {
-    Config.config.SCALE = Number(new_scale);
+    config.SCALE = Number(new_scale);
     //Update controls displayed value
-    $('#scale-display-value').html(String((Config.config.SCALE).toFixed(0)) + "X");
+    $('#scale-display-value').html(String((config.SCALE).toFixed(0)) + "X");
 };
 let playOrPauseAnimation = function (button_image) {
     if (button_image.attributes[2].nodeValue === 'playing') {
@@ -77,7 +78,7 @@ let playOrPauseAnimation = function (button_image) {
         Main.animationStatus[0] = 'play';
     }
 };
-export let createEventListeners = () => {
+export let initialize = () => {
     document.getElementById('play-pause-button').addEventListener('click', (event) => { playOrPauseAnimation(event.target); });
     document.querySelectorAll('.argument-input').forEach(element => {
         element.addEventListener('change', (event) => {
@@ -105,4 +106,8 @@ export let createEventListeners = () => {
         let element = event.target;
         updateScale(element.value);
     });
+    $('#width-in-pixels').html(String(config.CANVAS_WIDTH) + "px");
+    $('#width-proportion').html(String(100) + "%");
+    $('#height-in-pixels').html(String(config.CANVAS_HEIGHT) + "px");
+    $('#height-proportion').html(String(100) + "%");
 };

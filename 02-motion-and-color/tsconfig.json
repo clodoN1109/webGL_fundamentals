@@ -7,7 +7,21 @@
         "typescript": "^5.4.5"
     },
     "compilerOptions": {
+        "rootDirs": ["src"],
+        "noImplicitAny": false,
         "target": "es6",
-        "outDir": "./build",
-    }
+        "types": ["jquery"]        
+    },
+    
+    "files": [
+        "./src/config.ts",
+        "./src/controls.ts",
+        "./src/custom-types.ts",
+        "./src/main.ts",
+        "./src/utils.ts",
+        "./src/shapes.ts",
+        "./src/colors.ts",
+        "./src/objects.ts",
+    ]
+ 
 }

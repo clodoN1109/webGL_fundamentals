@@ -1,109 +1,26 @@
 import * as utils from "./utils.js";
-import * as Config from "./config.js";
+import { config } from "./config.js";
+import * as Shapes from "./shapes.js";
+import * as Colors from "./colors.js";
 import * as Controls from "./controls.js";
+import * as Objects from "./objects.js";
 //---------------------------------------------------------------------------------
-Controls.createEventListeners();
-$('#width-in-pixels').html(String(Config.config.CANVAS_WIDTH) + "px");
-$('#width-proportion').html(String(100) + "%");
-$('#height-in-pixels').html(String(Config.config.CANVAS_HEIGHT) + "px");
-$('#height-proportion').html(String(100) + "%");
-//---------------------------------------------------------------------------------
+// Initializing variables and caches
+Controls.initialize();
 export let interval_ID_UpdateParametersDisplay_List = [];
 export let interval_ID_UpdateBoundingBox_List = [];
-//---------------------------------------------------------------------------------
-// Defining shapes
-export let triangleVertices = new Float32Array([-1.0, -1.0, 1.0, -1.0, 0, 1.0]);
-export let squareVertices = new Float32Array([-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1]);
-export let circleVertices = function buildCircleVertexBuffer() {
-    const vertexData = [];
-    const angle_increment = (Math.PI * 2 / Config.config.CIRCLE_SEGMENT_COUNT);
-    for (let i = 0; i < Config.config.CIRCLE_SEGMENT_COUNT; i++) {
-        const vertex1Angle = i * angle_increment;
-        const vertex2Angle = (i + 1) * angle_increment;
-        const x1 = Math.cos(vertex1Angle);
-        const y1 = Math.sin(vertex1Angle);
-        const x2 = Math.cos(vertex2Angle);
-        const y2 = Math.sin(vertex2Angle);
-        vertexData.push(0, 0, 0.70, 0.70, 0.70);
-        vertexData.push(x1, y1, 0.95, 0.95, 0.95);
-        vertexData.push(x2, y2, 0.95, 0.95, 0.95);
-    }
-    return new Float32Array(vertexData);
-}();
-//---------------------------------------------------------------------------------
-// Defining Colors
-let rgbTriangleColors = new Uint8Array([
-    255, 0, 0,
-    0, 255, 0,
-    0, 0, 255,
-]);
-let fireyTriangleColors = new Uint8Array([
-    229, 47, 15,
-    246, 206, 29,
-    233, 154, 26
-]);
-const indigoGradientSquareColors = new Uint8Array([
-    // Top: "Tropical Indigo" - A799FF
-    167, 153, 255,
-    // Bottom: "Eminence" - 583E7A
-    88, 62, 122,
-    88, 62, 122,
-    167, 153, 255,
-    88, 62, 122,
-    167, 153, 255
-]);
-const graySquareColors = new Uint8Array([
-    80, 80, 80,
-    120, 120, 120,
-    120, 120, 120,
-    80, 80, 80,
-    120, 120, 120,
-    80, 80, 80,
-]);
-//---------------------------------------------------------------------------------
 export let animationID = NaN;
 export let animationStatus = ['play'];
-// Defining a Moving Object
-export class MovingShape {
-    constructor(position, velocity, size, timeRemaining, vao, numVertices, force, id, type) {
-        this.position = position;
-        this.velocity = velocity;
-        this.size = size;
-        this.timeRemaining = timeRemaining;
-        this.vao = vao;
-        this.numVertices = numVertices;
-        this.force = force;
-        this.id = id;
-        this.type = type;
-    }
-    isAlive() {
-        return this.timeRemaining > 0;
-    }
-    update(dt) {
-        this.velocity[0] += this.force[0] * dt;
-        this.velocity[1] += this.force[1] * dt;
-        this.position[0] += this.velocity[0] * dt;
-        this.position[1] += this.velocity[1] * dt;
-        this.timeRemaining -= dt;
-        if (this.timeRemaining < 0) {
-            this.timeRemaining = +0;
-        }
-    }
-}
-export function motionAndColor(width, height) {
-    const canvas = document.getElementById('demo-canvas');
-    if (!(canvas instanceof HTMLCanvasElement)) {
-        utils.showError("Sorry! This was just a terrible mistake!");
-        return;
-    }
+//---------------------------------------------------------------------------------
+export function motionDemonstration(width, height, canvas) {
     let webGL2 = canvas.getContext('webgl2');
     //---------------------------------------------------------------------------------
-    // Creating a program
+    // Loading GLSL source code and creating a webGL program
     const vertexShaderSourceCode = utils.stringfyGLSL('../src/vertexShader');
     const fragmentShaderSourceCode = utils.stringfyGLSL('../src/fragmentShader');
     const webGL2TriangleProgram = utils.createProgram(webGL2, vertexShaderSourceCode, fragmentShaderSourceCode);
     //---------------------------------------------------------------------------------
-    // Getting references/links to program attributes 
+    // Getting references to program attributes/variables 
     const vertexPositionAttributeLocation = webGL2.getAttribLocation(webGL2TriangleProgram, 'vertexPosition');
     const shapeSizeUniform = webGL2.getUniformLocation(webGL2TriangleProgram, 'shapeSize');
     const shapeLocationUniform = webGL2.getUniformLocation(webGL2TriangleProgram, 'shapeLocation');
@@ -112,15 +29,15 @@ export function motionAndColor(width, height) {
     //---------------------------------------------------------------------------------
     // Creating buffers
     // Vertex/position buffers
-    const triangleGeometryBuffer = utils.createStaticVertexBuffer(webGL2, triangleVertices);
-    const rgbColorBuffer = utils.createStaticVertexBuffer(webGL2, rgbTriangleColors);
-    const fireyColorBuffer = utils.createStaticVertexBuffer(webGL2, fireyTriangleColors);
+    const triangleGeometryBuffer = utils.createStaticVertexBuffer(webGL2, Shapes.triangleVertices);
+    const rgbColorBuffer = utils.createStaticVertexBuffer(webGL2, Colors.rgbTriangleColors);
+    const fireyColorBuffer = utils.createStaticVertexBuffer(webGL2, Colors.fireyTriangleColors);
     // Color buffers
-    const squareGeometryBuffer = utils.createStaticVertexBuffer(webGL2, squareVertices);
-    const indigoGradientSquareColorsBuffer = utils.createStaticVertexBuffer(webGL2, indigoGradientSquareColors);
-    const graySquareColorsBuffer = utils.createStaticVertexBuffer(webGL2, graySquareColors);
+    const squareGeometryBuffer = utils.createStaticVertexBuffer(webGL2, Shapes.squareVertices);
+    const indigoGradientSquareColorsBuffer = utils.createStaticVertexBuffer(webGL2, Colors.indigoGradientSquareColors);
+    const graySquareColorsBuffer = utils.createStaticVertexBuffer(webGL2, Colors.graySquareColors);
     // Vertex/position-color interleaved buffer
-    const circleInterleaveBuffer = utils.createStaticVertexBuffer(webGL2, circleVertices);
+    const circleInterleaveBuffer = utils.createStaticVertexBuffer(webGL2, Shapes.circleVertices);
     //---------------------------------------------------------------------------------
     // Creating VAOs (Vertex Attribute Objects)
     const fireyTriangleVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, triangleGeometryBuffer, fireyColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
@@ -133,12 +50,12 @@ export function motionAndColor(width, height) {
         { vao: fireyTriangleVertexAttributeObject, numVertices: 3, type: 'Firey Triangle' },
         { vao: indigoSquareVertexAttributeObject, numVertices: 6, type: 'Indigo Square' },
         { vao: graySquareVertexAttributeObject, numVertices: 6, type: 'Gray Square' },
-        { vao: circleVertexAttributeObject, numVertices: Config.config.CIRCLE_SEGMENT_COUNT * 3, type: 'Spectral Circle' },
+        { vao: circleVertexAttributeObject, numVertices: config.CIRCLE_SEGMENT_COUNT * 3, type: 'Spectral Circle' },
     ];
     let x = rgbTriangleVertexAttributeObject;
     //---------------------------------------------------------------------------------
     let shapes = [];
-    let timetoNextSpawn = Config.config.SPAWN_TIME;
+    let timetoNextSpawn = config.SPAWN_TIME;
     let lastFrameTime = performance.now();
     let frame = function () {
         const thisFrameTime = performance.now();
@@ -150,11 +67,11 @@ export function motionAndColor(width, height) {
         timetoNextSpawn -= dt;
         // The loop makes the spawn time more independent from the browser's framerate. A feature to be further analyzed.
         while (timetoNextSpawn < 0) {
-            timetoNextSpawn += Config.config.SPAWN_TIME;
+            timetoNextSpawn += config.SPAWN_TIME;
             let [position, velocity, size, timeRemaining, vao, numVertices, force, type] = utils.generateNewShapeParameters(VAOList);
             let new_id = utils.getRandomIntegerInRange(1, 10000);
-            if (shapes.length < Config.config.MAX_SHAPE_COUNT) {
-                shapes.push(new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id, type));
+            if (shapes.length < config.MAX_SHAPE_COUNT) {
+                shapes.push(new Objects.MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id, type));
             }
         }
         // Imposing object count and lifespan limits
@@ -183,8 +100,9 @@ export function motionAndColor(width, height) {
     };
     requestAnimationFrame(frame);
 }
+export const canvas = document.getElementById('demo-canvas');
 try {
-    motionAndColor(window.innerWidth, window.innerHeight);
+    motionDemonstration(window.innerWidth, window.innerHeight, canvas);
 }
 catch (e) {
     utils.showError(`Uncaught exception: ${e}`);

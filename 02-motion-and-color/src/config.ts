@@ -17,4 +17,4 @@ export let config = {
     OFFSET_X: 0.0,
     OFFSET_Y: 0.0,
     SCALE: 1.0,
-}  
+}   
