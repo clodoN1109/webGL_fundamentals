@@ -65,7 +65,7 @@ export let animationID = NaN;
 export let animationStatus = ['play'];
 // Defining a Moving Object
 export class MovingShape {
-    constructor(position, velocity, size, timeRemaining, vao, numVertices, force, id) {
+    constructor(position, velocity, size, timeRemaining, vao, numVertices, force, id, type) {
         this.position = position;
         this.velocity = velocity;
         this.size = size;
@@ -74,6 +74,7 @@ export class MovingShape {
         this.numVertices = numVertices;
         this.force = force;
         this.id = id;
+        this.type = type;
     }
     isAlive() {
         return this.timeRemaining > 0;
@@ -119,24 +120,26 @@ export function motionAndColor(width, height) {
     const circleInterleaveBuffer = utils.createStaticVertexBuffer(webGL2, circleVertices);
     //---------------------------------------------------------------------------------
     // Creating VAOs (Vertex Attribute Objects)
-    const fireyTriangleVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, triangleGeometryBuffer, fireyColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const rgbTriangleVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, triangleGeometryBuffer, rgbColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const indigoSquareVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, squareGeometryBuffer, indigoGradientSquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const graySquareVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, squareGeometryBuffer, graySquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const circleVertexAttributeObject = utils.createInterleaveBufferVertexAttribureObject(webGL2, circleInterleaveBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const fireyTriangleVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, triangleGeometryBuffer, fireyColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const rgbTriangleVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, triangleGeometryBuffer, rgbColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const indigoSquareVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, squareGeometryBuffer, indigoGradientSquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const graySquareVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, squareGeometryBuffer, graySquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const circleVertexAttributeObject = utils.createInterleaveBufferVertexAttributeObject(webGL2, circleInterleaveBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
     const VAOList = [
-        { vao: rgbTriangleVertexAttributeObject, numVertices: 3 },
-        { vao: fireyTriangleVertexAttributeObject, numVertices: 3 },
-        { vao: indigoSquareVertexAttributeObject, numVertices: 6 },
-        { vao: graySquareVertexAttributeObject, numVertices: 6 },
-        { vao: circleVertexAttributeObject, numVertices: Config.config.CIRCLE_SEGMENT_COUNT * 3 },
+        { vao: rgbTriangleVertexAttributeObject, numVertices: 3, type: 'RGB Triangle' },
+        { vao: fireyTriangleVertexAttributeObject, numVertices: 3, type: 'Firey Triangle' },
+        { vao: indigoSquareVertexAttributeObject, numVertices: 6, type: 'Indigo Square' },
+        { vao: graySquareVertexAttributeObject, numVertices: 6, type: 'Gray Square' },
+        { vao: circleVertexAttributeObject, numVertices: Config.config.CIRCLE_SEGMENT_COUNT * 3, type: 'Spectral Circle' },
     ];
+    let x = rgbTriangleVertexAttributeObject;
     //---------------------------------------------------------------------------------
     let shapes = [];
     let timetoNextSpawn = Config.config.SPAWN_TIME;
     let lastFrameTime = performance.now();
     let frame = function () {
         const thisFrameTime = performance.now();
+        // Time interval in seconds
         let dt = (thisFrameTime - lastFrameTime) / 1000;
         if (animationStatus[0] === 'paused') {
             dt = 0;
@@ -145,10 +148,10 @@ export function motionAndColor(width, height) {
         // The loop makes the spawn time more independent from the browser's framerate. A feature to be further analyzed.
         while (timetoNextSpawn < 0) {
             timetoNextSpawn += Config.config.SPAWN_TIME;
-            let [position, velocity, size, timeRemaining, vao, numVertices, force] = utils.generateNewShapeParameters(VAOList);
+            let [position, velocity, size, timeRemaining, vao, numVertices, force, type] = utils.generateNewShapeParameters(VAOList);
             let new_id = utils.getRandomIntegerInRange(1, 10000);
             if (shapes.length < Config.config.MAX_SHAPE_COUNT) {
-                shapes.push(new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id));
+                shapes.push(new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id, type));
             }
         }
         // Imposing object count and lifespan limits

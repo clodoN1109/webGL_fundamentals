@@ -112,6 +112,7 @@ export class MovingShape {
         public numVertices: number,
         public force: [number, number],
         public id: number,
+        public type: string,
         
     ) {}
 
@@ -181,19 +182,21 @@ export function motionAndColor(width, height) {
 
     // Creating VAOs (Vertex Attribute Objects)
 
-    const fireyTriangleVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, triangleGeometryBuffer, fireyColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const rgbTriangleVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, triangleGeometryBuffer, rgbColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const indigoSquareVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, squareGeometryBuffer, indigoGradientSquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const graySquareVertexAttributeObject = utils.createTwoBufferVertexAttribureObject(webGL2, squareGeometryBuffer, graySquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
-    const circleVertexAttributeObject = utils.createInterleaveBufferVertexAttribureObject(webGL2, circleInterleaveBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const fireyTriangleVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, triangleGeometryBuffer, fireyColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const rgbTriangleVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, triangleGeometryBuffer, rgbColorBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const indigoSquareVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, squareGeometryBuffer, indigoGradientSquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const graySquareVertexAttributeObject = utils.createTwoBufferVertexAttributeObject(webGL2, squareGeometryBuffer, graySquareColorsBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
+    const circleVertexAttributeObject = utils.createInterleaveBufferVertexAttributeObject(webGL2, circleInterleaveBuffer, vertexPositionAttributeLocation, vertexColorAttributeLocation);
 
     const VAOList : VAO[] = [
-        {vao: rgbTriangleVertexAttributeObject, numVertices: 3},
-        {vao: fireyTriangleVertexAttributeObject, numVertices: 3},
-        {vao: indigoSquareVertexAttributeObject, numVertices: 6},
-        {vao: graySquareVertexAttributeObject, numVertices: 6},
-        {vao: circleVertexAttributeObject, numVertices: Config.config.CIRCLE_SEGMENT_COUNT * 3},
+        {vao: rgbTriangleVertexAttributeObject, numVertices: 3, type: 'RGB Triangle'},
+        {vao: fireyTriangleVertexAttributeObject, numVertices: 3, type: 'Firey Triangle'},
+        {vao: indigoSquareVertexAttributeObject, numVertices: 6, type: 'Indigo Square'},
+        {vao: graySquareVertexAttributeObject, numVertices: 6, type: 'Gray Square'},
+        {vao: circleVertexAttributeObject, numVertices: Config.config.CIRCLE_SEGMENT_COUNT * 3, type: 'Spectral Circle'},
     ];
+
+    let x = rgbTriangleVertexAttributeObject;
 
     //---------------------------------------------------------------------------------
 
@@ -205,6 +208,7 @@ export function motionAndColor(width, height) {
 
         const thisFrameTime = performance.now();
         
+        // Time interval in seconds
         let dt = (thisFrameTime - lastFrameTime) / 1000;
 
         if (animationStatus[0] === 'paused') {
@@ -218,13 +222,13 @@ export function motionAndColor(width, height) {
 
             timetoNextSpawn += Config.config.SPAWN_TIME;
 
-            let [position, velocity, size, timeRemaining, vao, numVertices, force] : shapeParameters = utils.generateNewShapeParameters(VAOList); 
+            let [position, velocity, size, timeRemaining, vao, numVertices, force, type] : shapeParameters = utils.generateNewShapeParameters(VAOList); 
     
             let new_id =  utils.getRandomIntegerInRange(1, 10000);
             if (shapes.length < Config.config.MAX_SHAPE_COUNT) {
                 
                 shapes.push(
-                    new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id)
+                    new MovingShape(position, velocity, size, timeRemaining, vao, numVertices, force, new_id, type)
                 );    
            
             }

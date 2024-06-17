@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>WebGL Motion and Color Exercise</title> 
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
@@ -55,7 +56,7 @@
                                 <p class="parameter-units">seconds</p> 
                             </span>                             
                             <input id="MIN_SHAPE_TIME" type="number" min="0.00" max="10.00" value="2.00" step="0.05" class="argument-input">                
-                            <input id="MAX_SHAPE_TIME" type="number" min="0.00" max="10.00" value="6.00" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_TIME" type="number" min="0.00" max="10.00" value="10.00" step="0.05" class="argument-input">                
                         </div>
                         
                         <div class="parameters">
@@ -68,15 +69,21 @@
                         </div>
 
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">FORCE</span> 
-                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
-                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">VELOCITY</p> 
+                                <p class="parameter-units">pixels/s</p> 
+                            </span>                            
+                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="5.00" value="0.01" step="0.01" class="argument-input">                
+                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="5.00" value="1.00" step="0.01" class="argument-input">                
                         </div>
 
                         <div class="parameters">
-                            <span class="control-description" style="color: rgb(205, 205, 199);">SPEED</span> 
-                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="5.00" value="0.01" step="0.01" class="argument-input">                
-                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="5.00" value="1.00" step="0.01" class="argument-input">                
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">FORCE</p> 
+                                <p class="parameter-units">pixels/s²</p> 
+                            </span>     
+                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1" value="0.5" step="0.05" class="argument-input">                
                         </div>
 
                     </div>
@@ -106,7 +113,7 @@
                 </div>
             </div>
             <div class="parameter-controler">
-                <span class="control-description" style="color: rgb(207, 106, 34);">X Initial Position</span>   
+                <span class="control-description" style="color: rgb(207, 106, 34);">X Origin</span>   
                 <input id="offsetX" type="range" min="-1.00" max="1.00" value="0.00" step="0.05" class="">
                 <div class="range-current-value">
         
@@ -116,7 +123,7 @@
                 </div>
             </div>
             <div class="parameter-controler">
-                <span class="control-description" style="color: rgb(207, 106, 34);">X Initial Position</span>      
+                <span class="control-description" style="color: rgb(207, 106, 34);">Y Origin</span>      
                 <input id="offsetY" type="range" min="-1" max="1" value="0" step="0.05" class="">
                 <div class="range-current-value">
         
@@ -151,6 +158,11 @@
                 </div>
 
                 <div class="object-info">
+                    <div>Type:</div>
+                    <output class="objects-info-value" id="object-type"></output>
+                </div>
+
+                <div class="object-info">
                     <div>Time Remaining:</div>
                     <output class="objects-info-value" id="object-time-remaining"></output>
                 </div>
@@ -161,13 +173,13 @@
                 </div>
 
                 <div class="object-info">
-                    <div>Force:</div>
-                    <output class="objects-info-value" id="object-force"></output>
+                    <div>Velocity:</div>
+                    <output class="objects-info-value" id="object-speed"></output>
                 </div>
 
                 <div class="object-info">
-                    <div>Speed:</div>
-                    <output class="objects-info-value" id="object-speed"></output>
+                    <div>Force:</div>
+                    <output class="objects-info-value" id="object-force"></output>
                 </div>
 
                 <div class="object-info">
@@ -179,12 +191,12 @@
                     <div>Number of Vertices:</div>
                     <output class="objects-info-value" id="object-vertices"></output>
                 </div>
-
+                <!-- 
                 <div class="object-info">
                     <div>Vertex Attribute Object:</div>
                     <output class="objects-info-value" id="object-vao"></output>
-                </div>
-
+                </div> 
+                -->
                 <div class="object-info">
                     <div>Is Alive?</div>
                     <output class="objects-info-value" id="object-alive"></output>

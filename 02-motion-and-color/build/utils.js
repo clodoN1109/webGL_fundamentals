@@ -30,7 +30,7 @@ export function stringfyGLSL(filename) {
     request.send(null);
     return request.responseText;
 }
-export function createTwoBufferVertexAttribureObject(webGL2, positionBuffer, colorBuffer, positionAttributeLocation, colorAttributeLocation) {
+export function createTwoBufferVertexAttributeObject(webGL2, positionBuffer, colorBuffer, positionAttributeLocation, colorAttributeLocation) {
     const vertexAttributeObject = webGL2.createVertexArray();
     webGL2.bindVertexArray(vertexAttributeObject);
     // Enabling vertex shader attributes
@@ -46,7 +46,7 @@ export function createTwoBufferVertexAttribureObject(webGL2, positionBuffer, col
     webGL2.bindVertexArray(null);
     return vertexAttributeObject;
 }
-export function createInterleaveBufferVertexAttribureObject(webGL2, interleaveBuffer, positionAttributeLocation, colorAttributeLocation) {
+export function createInterleaveBufferVertexAttributeObject(webGL2, interleaveBuffer, positionAttributeLocation, colorAttributeLocation) {
     const vertexAttributeObject = webGL2.createVertexArray();
     webGL2.bindVertexArray(vertexAttributeObject);
     webGL2.enableVertexAttribArray(positionAttributeLocation);
@@ -73,23 +73,25 @@ export function createProgram(webGL2, vertexShaderSourceCode, fragmentShaderSour
 }
 export function generateNewShapeParameters(VAOList) {
     const movementAngle = getRandomInRange(0, 2 * Math.PI);
-    const movementSpeed = getRandomInRange(Config.config.MIN_SHAPE_SPEED, Config.config.MAX_SHAPE_SPEED);
+    let movementSpeed = getRandomInRange(Config.config.MIN_SHAPE_SPEED, Config.config.MAX_SHAPE_SPEED);
+    movementSpeed = movementSpeed;
     const forceAngle = getRandomInRange(0, 2 * Math.PI);
     const forceSpeed = getRandomInRange(Config.config.MIN_SHAPE_FORCE, Config.config.MAX_SHAPE_FORCE);
     const position = [Config.config.OFFSET_X, Config.config.OFFSET_Y];
     const velocity = [
-        Math.sin(movementAngle) * movementSpeed,
-        Math.cos(movementAngle) * movementSpeed
+        Math.sin(movementAngle) * movementSpeed * (2 / Config.config.CANVAS_WIDTH),
+        Math.cos(movementAngle) * movementSpeed * (2 / Config.config.CANVAS_HEIGHT)
     ];
     const force = [
-        Math.sin(forceAngle) * forceSpeed,
-        Math.cos(forceAngle) * forceSpeed
+        Math.sin(forceAngle) * forceSpeed * (2 / Config.config.CANVAS_WIDTH),
+        Math.cos(forceAngle) * forceSpeed * (2 / Config.config.CANVAS_HEIGHT)
     ];
     const size = Config.config.SCALE * getRandomInRange(Config.config.MIN_SHAPE_SIZE, Config.config.MAX_SHAPE_SIZE);
     const timeRemaining = getRandomInRange(Config.config.MIN_SHAPE_TIME, Config.config.MAX_SHAPE_TIME);
     const attributeObjectIndex = Math.floor(getRandomInRange(0, VAOList.length));
     const geometry = VAOList[attributeObjectIndex];
-    return [position, velocity, size, timeRemaining, geometry.vao, geometry.numVertices, force];
+    const type = geometry.type;
+    return [position, velocity, size, timeRemaining, geometry.vao, geometry.numVertices, force, type];
 }
 export function updateObjectExplorer(shapes) {
     shapes.forEach(shape => {
@@ -110,19 +112,20 @@ export function updateObjectExplorer(shapes) {
                 });
                 let intervalID = setInterval(() => {
                     $('#object-id').html(String(shape.id));
+                    $('#object-type').html(String(shape.type));
                     $('#object-size').html(String(shape.size.toFixed(2)));
                     $('#object-vertices').html(String(shape.numVertices));
-                    $('#object-position').html(String(shape.position[0].toFixed(4)) + ', ' + String(shape.position[1].toFixed(4)));
-                    $('#object-speed').html(String([shape.velocity[0].toFixed(4), shape.velocity[1].toFixed(4)]));
-                    $('#object-force').html(String([shape.force[0].toFixed(4), shape.force[1].toFixed(4)]));
+                    $('#object-position').html(String((shape.position[0] * Config.config.CANVAS_WIDTH / 2).toFixed(4)) + ', ' + String((shape.position[1] * Config.config.CANVAS_HEIGHT / 2).toFixed(4)));
+                    $('#object-speed').html(String([(shape.velocity[0] * Config.config.CANVAS_WIDTH / 2).toFixed(4), (shape.velocity[1] * Config.config.CANVAS_HEIGHT / 2).toFixed(4)]));
+                    $('#object-force').html(String([(shape.force[0] * Config.config.CANVAS_WIDTH / 2).toFixed(4), (shape.force[1] * Config.config.CANVAS_HEIGHT / 2).toFixed(4)]));
                     $('#object-time-remaining').html(String(shape.timeRemaining.toFixed(2)));
-                    $('#object-vao').html(String(shape.vao));
+                    // $('#object-vao').html(String(shape.vao));
                     $('#object-alive').html(String(shape.isAlive()));
                     // Update bounding box size and location
-                    $('#bounding-box-selected').css('width', String(shape.size) + 'px');
-                    $('#bounding-box-selected').css('height', String(shape.size) + 'px');
-                    $('#bounding-box-selected').css('bottom', String(((shape.position[1] + 1) / 2) * Config.config.CANVAS_HEIGHT - shape.size / 2 + difY) + 'px');
-                    $('#bounding-box-selected').css('left', String(((shape.position[0] + 1) / 2) * Config.config.CANVAS_WIDTH - shape.size / 2 + difX) + 'px');
+                    $('#bounding-box-selected').css('width', String(shape.size + 8) + 'px');
+                    $('#bounding-box-selected').css('height', String(shape.size + 8) + 'px');
+                    $('#bounding-box-selected').css('bottom', String(((shape.position[1] + 1) / 2) * Config.config.CANVAS_HEIGHT - (shape.size + 8) / 2 + difY - 4) + 'px');
+                    $('#bounding-box-selected').css('left', String(((shape.position[0] + 1) / 2) * Config.config.CANVAS_WIDTH - (shape.size + 8) / 2 + difX - 2) + 'px');
                 }, 10);
                 Main.interval_ID_UpdateParametersDisplay_List.push(intervalID);
             });
@@ -135,8 +138,8 @@ export function updateObjectExplorer(shapes) {
                     // Update bounding box size and location
                     $('#bounding-box-mouseover').css('width', String(shape.size) + 'px');
                     $('#bounding-box-mouseover').css('height', String(shape.size) + 'px');
-                    $('#bounding-box-mouseover').css('bottom', String(((shape.position[1] + 1) / 2) * Config.config.CANVAS_HEIGHT - shape.size / 2 + difY) + 'px');
-                    $('#bounding-box-mouseover').css('left', String(((shape.position[0] + 1) / 2) * Config.config.CANVAS_WIDTH - shape.size / 2 + difX) + 'px');
+                    $('#bounding-box-mouseover').css('bottom', String(((shape.position[1] + 1) / 2) * Config.config.CANVAS_HEIGHT - shape.size / 2 + difY - 4) + 'px');
+                    $('#bounding-box-mouseover').css('left', String(((shape.position[0] + 1) / 2) * Config.config.CANVAS_WIDTH - shape.size / 2 + difX - 3) + 'px');
                 }, 0);
                 Main.interval_ID_UpdateBoundingBox_List.push(intervalID);
             });

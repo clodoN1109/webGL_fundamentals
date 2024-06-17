@@ -259,7 +259,6 @@ button img {
 
     width: 20vw;
 
-
     overflow-y: hidden;
     overflow-x: hidden;
 
@@ -274,6 +273,7 @@ button img {
 }
 
 #objects-list {
+
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
@@ -285,7 +285,8 @@ button img {
     align-items: center;
 
     padding: 0;
-    margin: 0;
+    margin: 25px 0;
+    
 }
 
 .objects-list-item {
@@ -318,6 +319,7 @@ button img {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: 4px;
 
     padding: 0;
 }
@@ -372,5 +374,5 @@ button img {
     height: 0;
     border-style: dashed;
     border-width: 3px;
-    border-color: #4f17db;
+    border-color: #e8e8e8;
 }    
