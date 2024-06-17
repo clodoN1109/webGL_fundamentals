@@ -129,7 +129,9 @@ export class MovingShape {
         this.position[1] += this.velocity[1] * dt;
 
         this.timeRemaining -= dt;
-
+        if (this.timeRemaining < 0) {
+            this.timeRemaining = +0;
+        }
     }
 
 }

@@ -21,13 +21,19 @@
 
             <span class="control-box-title">CONTROLS</span>
 
-            <button><img id="play-pause-button" src="./assets/play.png" data-state="playing" alt="play-pause"></button>   
-
             <div class="parameter-controler">
                 <div style="display: inline-flex; justify-content: center; align-items: center; gap: 10px; margin: 8px;">
                       
                     <div style="display: flex; flex-direction: column;">
-                        
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">play/pause</p> 
+                                <p class="parameter-units">animation</p> 
+                            </span> 
+                            <button><img id="play-pause-button" src="./assets/play.png" data-state="playing" alt="play-pause"></button>   
+                        </div>
+
                         <div class="parameters">
                             <span class="control-description" style="color: rgb(205, 205, 199);">
                                 <p class="parameter-name">SPAWN TIME</p> 
@@ -64,8 +70,8 @@
                                 <p class="parameter-name">SIZE</p> 
                                 <p class="parameter-units">pixels</p> 
                             </span> 
-                            <input id="MIN_SHAPE_SIZE" type="number" min="0.01" max="3.00" value="90" step="0.05" class="argument-input">                
-                            <input id="MAX_SHAPE_SIZE" type="number" min="0.02" max="3.00" value="100" step="0.05" class="argument-input">                
+                            <input id="MIN_SHAPE_SIZE" type="number" min="0" max="1000" value="50" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_SIZE" type="number" min="0" max="1000" value="100" step="1" class="argument-input">                
                         </div>
 
                         <div class="parameters">
@@ -73,8 +79,8 @@
                                 <p class="parameter-name">VELOCITY</p> 
                                 <p class="parameter-units">pixels/s</p> 
                             </span>                            
-                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="5.00" value="0.01" step="0.01" class="argument-input">                
-                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="5.00" value="1.00" step="0.01" class="argument-input">                
+                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="2000" value="100" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="2000" value="300" step="1" class="argument-input">                
                         </div>
 
                         <div class="parameters">
@@ -82,8 +88,8 @@
                                 <p class="parameter-name">FORCE</p> 
                                 <p class="parameter-units">pixels/s²</p> 
                             </span>     
-                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1" value="0" step="0.05" class="argument-input">                
-                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1" value="0.5" step="0.05" class="argument-input">                
+                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1000" value="0" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1000" value="2" step="1" class="argument-input">                
                         </div>
 
                     </div>
@@ -163,27 +169,27 @@
                 </div>
 
                 <div class="object-info">
-                    <div>Time Remaining:</div>
+                    <div>Time Remaining (seconds):</div>
                     <output class="objects-info-value" id="object-time-remaining"></output>
                 </div>
 
                 <div class="object-info">
-                    <div>Position:</div>
+                    <div>Position (pixels):</div>
                     <output class="objects-info-value" id="object-position"></output>
                 </div>
 
                 <div class="object-info">
-                    <div>Velocity:</div>
+                    <div>Velocity (pixels/second):</div>
                     <output class="objects-info-value" id="object-speed"></output>
                 </div>
 
                 <div class="object-info">
-                    <div>Force:</div>
+                    <div>Force (pixels/second²):</div>
                     <output class="objects-info-value" id="object-force"></output>
                 </div>
 
                 <div class="object-info">
-                    <div>Size:</div>
+                    <div>Size (pixels):</div>
                     <output class="objects-info-value" id="object-size"></output>
                 </div>
 
@@ -215,7 +221,7 @@
         <div id="app-description-box">
             <img src="./assets/webgl.png" width="100px">
             <span class="app-box-title">WebGL Exercise:</span>
-            <span class="app-description">Motion and Color</span>            
+            <span class="app-description">Motion on WebGL</span>            
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -85,6 +85,9 @@ export class MovingShape {
         this.position[0] += this.velocity[0] * dt;
         this.position[1] += this.velocity[1] * dt;
         this.timeRemaining -= dt;
+        if (this.timeRemaining < 0) {
+            this.timeRemaining = +0;
+        }
     }
 }
 export function motionAndColor(width, height) {
