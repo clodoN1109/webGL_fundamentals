@@ -24,8 +24,8 @@ export function motionDemonstration(width, height, canvas) {
                                     
     // Loading GLSL source code and creating a webGL program
 
-    const vertexShaderSourceCode = utils.stringfyGLSL('./src/vertexShader');
-    const fragmentShaderSourceCode = utils.stringfyGLSL('./src/fragmentShader');
+    const vertexShaderSourceCode = utils.stringfyGLSL('src/vertexShader');
+    const fragmentShaderSourceCode = utils.stringfyGLSL('src/fragmentShader');
     const webGL2TriangleProgram = utils.createProgram(webGL2, vertexShaderSourceCode, fragmentShaderSourceCode);
 
     //---------------------------------------------------------------------------------
