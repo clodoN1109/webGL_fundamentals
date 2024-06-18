@@ -1,3 +1,4 @@
+"use strict";
 let triangleVertices = [-0.5, -0.5, 0.5, -0.5, 0, 0.5];
 let scale = 100;
 let offsetX = window.innerWidth / 2;

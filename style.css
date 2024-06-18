@@ -1,0 +1,152 @@
+html, body {
+    
+    max-width: 100vw;
+    max-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background-image: url(./assets/stars-galaxy-3840x2160-10307.jpg);
+    background-size: cover;
+
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+
+
+#app-description-box {
+    
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    bottom: 40px;
+    right: 40px;
+
+    width: max-content;
+    max-width: 100%;
+    min-width: 200px;
+
+    overflow-x: auto;
+
+    background-color: #3d3535d6;
+
+    color: #fd8080;
+    font-weight: 500;
+    font-size: 10pt;
+    border: 1px solid white;
+    padding: 20px;
+    margin: 2px;
+}
+
+.app-box-title {
+    color: #eee;
+    margin: 10px 0;
+}
+
+.app-description {
+    color: #db17ade5;
+    font-weight: 700;
+}
+
+.container-container {
+
+    position: absolute;
+    top: 20vh;
+
+    width: 100vw;
+    height: max-content;
+
+    margin: 0;
+}
+
+.horizontal-bar-container {
+    
+    
+    width: 100%;
+    height: 320px;
+    
+    margin: 0;
+    padding: 20px 60px;
+    
+    background-image: linear-gradient(90deg, rgba(132, 35, 35, 0.916), rgba(0,0,0,0));
+
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+
+    gap: 50px;
+
+}
+
+.window-link {
+
+    position: relative;
+    top: 0;
+
+    width: 300px;
+    min-height: 300px;
+
+    padding: 5px;
+    margin: 10px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgba(222, 222, 222, 0.669);
+
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;    
+
+    color: rgba(226, 226, 226, 0.815);
+
+    cursor: pointer;
+
+    transition: all 0.2s;
+}
+
+.window-link:hover {
+    
+    scale: 1.02;
+    border-width: 3px;
+}
+
+.window-link img {
+    width: 100%;
+}
+
+.link-title {
+    
+    width: 100%;
+
+    padding: 4px;
+
+    text-align: center;
+    text-justify: center;
+
+    background-color: rgba(75, 23, 23, 0.758);
+
+    font-weight: 600;
+}
+
+.link-description {
+    
+    width: 100%;
+
+    padding: 4px;
+
+    text-align: center;
+    text-justify: center;
+    font-size: small;
+    font-weight: 300;
+}
+

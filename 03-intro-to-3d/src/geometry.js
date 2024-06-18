@@ -2,7 +2,7 @@
 // Vertex buffer format: XYZ RGB (interleaved)
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.create3dPosColorInterleavedVao = exports.TABLE_INDICES = exports.TABLE_VERTICES = exports.CUBE_INDICES = exports.CUBE_VERTICES = void 0;
-var gl_utils_1 = require("./gl-utils");
+const gl_utils_1 = require("./gl-utils");
 //
 // Cube geometry
 // taken from: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Creating_3D_objects_using_WebGL
@@ -64,7 +64,7 @@ exports.TABLE_INDICES = new Uint16Array([
     0, 2, 3, // top
 ]);
 function create3dPosColorInterleavedVao(gl, vertexBuffer, indexBuffer, posAttrib, colorAttrib) {
-    var vao = gl.createVertexArray();
+    const vao = gl.createVertexArray();
     if (!vao) {
         (0, gl_utils_1.showError)('Failed to create VAO');
         return null;

@@ -4,17 +4,17 @@ exports.getRandomInRange = exports.getContext = exports.createProgram = exports.
 /** Display an error message to the DOM, beneath the demo element */
 function showError(errorText) {
     console.error(errorText);
-    var errorBoxDiv = document.getElementById('error-box');
+    const errorBoxDiv = document.getElementById('error-box');
     if (errorBoxDiv === null) {
         return;
     }
-    var errorElement = document.createElement('p');
+    const errorElement = document.createElement('p');
     errorElement.innerText = errorText;
     errorBoxDiv.appendChild(errorElement);
 }
 exports.showError = showError;
 function createStaticVertexBuffer(gl, data) {
-    var buffer = gl.createBuffer();
+    const buffer = gl.createBuffer();
     if (!buffer) {
         showError('Failed to allocate buffer');
         return null;
@@ -26,7 +26,7 @@ function createStaticVertexBuffer(gl, data) {
 }
 exports.createStaticVertexBuffer = createStaticVertexBuffer;
 function createStaticIndexBuffer(gl, data) {
-    var buffer = gl.createBuffer();
+    const buffer = gl.createBuffer();
     if (!buffer) {
         showError('Failed to allocate buffer');
         return null;
@@ -38,45 +38,45 @@ function createStaticIndexBuffer(gl, data) {
 }
 exports.createStaticIndexBuffer = createStaticIndexBuffer;
 function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
-    var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-    var program = gl.createProgram();
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    const program = gl.createProgram();
     if (!vertexShader || !fragmentShader || !program) {
-        showError("Failed to allocate GL objects ("
-            + "vs=".concat(!!vertexShader, ", ")
-            + "fs=".concat(!!fragmentShader, ", ")
-            + "program=".concat(!!program, ")"));
+        showError(`Failed to allocate GL objects (`
+            + `vs=${!!vertexShader}, `
+            + `fs=${!!fragmentShader}, `
+            + `program=${!!program})`);
         return null;
     }
     gl.shaderSource(vertexShader, vertexShaderSource);
     gl.compileShader(vertexShader);
     if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-        var errorMessage = gl.getShaderInfoLog(vertexShader);
-        showError("Failed to compile vertex shader: ".concat(errorMessage));
+        const errorMessage = gl.getShaderInfoLog(vertexShader);
+        showError(`Failed to compile vertex shader: ${errorMessage}`);
         return null;
     }
     gl.shaderSource(fragmentShader, fragmentShaderSource);
     gl.compileShader(fragmentShader);
     if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-        var errorMessage = gl.getShaderInfoLog(fragmentShader);
-        showError("Failed to compile fragment shader: ".concat(errorMessage));
+        const errorMessage = gl.getShaderInfoLog(fragmentShader);
+        showError(`Failed to compile fragment shader: ${errorMessage}`);
         return null;
     }
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        var errorMessage = gl.getProgramInfoLog(program);
-        showError("Failed to link GPU program: ".concat(errorMessage));
+        const errorMessage = gl.getProgramInfoLog(program);
+        showError(`Failed to link GPU program: ${errorMessage}`);
         return null;
     }
     return program;
 }
 exports.createProgram = createProgram;
 function getContext(canvas) {
-    var gl = canvas.getContext('webgl2');
+    const gl = canvas.getContext('webgl2');
     if (!gl) {
-        var isWebGl1Supported = !!(document.createElement('canvas')).getContext('webgl');
+        const isWebGl1Supported = !!(document.createElement('canvas')).getContext('webgl');
         if (isWebGl1Supported) {
             throw new Error('WebGL 1 is supported, but not v2 - try using a different device or browser');
         }

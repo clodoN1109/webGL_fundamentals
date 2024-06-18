@@ -1,0 +1,21 @@
+{
+  "name": "webgl_fundamentals",
+  "scripts": {
+      "build": "tsc --watch"
+  },
+  "dependencies": {
+      "typescript": "^5.4.5"
+  },
+  "compilerOptions": {
+      "rootDirs": ["./"],
+      "noImplicitAny": false,
+      "target": "es6",      
+  },
+
+  "exclude": ["01-shapes", "02-motion-and-color", "03-intro-to-3D"],
+  
+  "files": [
+      "./index.ts"
+  ],
+
+}
