@@ -1,8 +1,5 @@
-"use strict";
 // Configurations
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
-exports.config = {
+export let config = {
     SPAWN_TIME: 1,
     MIN_SHAPE_TIME: 2,
     MAX_SHAPE_TIME: 10,

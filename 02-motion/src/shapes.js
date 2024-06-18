@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.circleVertices = exports.squareVertices = exports.triangleVertices = void 0;
-const config_js_1 = require("./config.js");
+import { config } from "./config.js";
 // Defining shapes
-exports.triangleVertices = new Float32Array([-1.0, -1.0, 1.0, -1.0, 0, 1.0]);
-exports.squareVertices = new Float32Array([-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1]);
-exports.circleVertices = function buildCircleVertexBuffer() {
+export let triangleVertices = new Float32Array([-1.0, -1.0, 1.0, -1.0, 0, 1.0]);
+export let squareVertices = new Float32Array([-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1]);
+export let circleVertices = function buildCircleVertexBuffer() {
     const vertexData = [];
-    const angle_increment = (Math.PI * 2 / config_js_1.config.CIRCLE_SEGMENT_COUNT);
-    for (let i = 0; i < config_js_1.config.CIRCLE_SEGMENT_COUNT; i++) {
+    const angle_increment = (Math.PI * 2 / config.CIRCLE_SEGMENT_COUNT);
+    for (let i = 0; i < config.CIRCLE_SEGMENT_COUNT; i++) {
         const vertex1Angle = i * angle_increment;
         const vertex2Angle = (i + 1) * angle_increment;
         const x1 = Math.cos(vertex1Angle);

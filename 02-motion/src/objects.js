@@ -1,8 +1,5 @@
-"use strict";
 // Defining a Moving Object
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MovingShape = void 0;
-class MovingShape {
+export class MovingShape {
     constructor(position, velocity, size, timeRemaining, vao, numVertices, force, id, type) {
         this.position = position;
         this.velocity = velocity;
@@ -28,4 +25,3 @@ class MovingShape {
         }
     }
 }
-exports.MovingShape = MovingShape;
