@@ -15,7 +15,7 @@
   "exclude": ["01-shapes", "02-motion-and-color", "03-intro-to-3D"],
   
   "files": [
-      "./index.ts"
+      "./main.ts"
   ],
 
 }

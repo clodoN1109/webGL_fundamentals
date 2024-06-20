@@ -1,17 +1,22 @@
 {
-  "name": "03-intro-to-3d",
+  "name": "webgl_motion_and_color",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "WebGL Motion and Color Exercise",
+  "main": "main.js",
+  "scripts": {
+    "compile": "tsc --watch",
+    "build": "webpack --config webpack.config.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Clodo",
   "license": "MIT",
   "devDependencies": {
+    "@types/jquery": "^3.5.30",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.1.6",
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
-  },
-  "scripts": {
-    "build": "webpack",
-    "dev": "webpack --watch"
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
     "gl-matrix": "^3.4.3"

@@ -1,11 +1,30 @@
 "use strict";
-// Vertex buffer format: XYZ RGB (interleaved)
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create3dPosColorInterleavedVao = exports.TABLE_INDICES = exports.TABLE_VERTICES = exports.CUBE_INDICES = exports.CUBE_VERTICES = void 0;
-const gl_utils_1 = require("./gl-utils");
-//
-// Cube geometry
-// taken from: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Creating_3D_objects_using_WebGL
+exports.create3DPosColorInterleavedVAO = exports.TABLE_INDICES = exports.TABLE_VERTICES = exports.CUBE_INDICES = exports.CUBE_VERTICES = void 0;
+const Utils = __importStar(require("./utils.js"));
 exports.CUBE_VERTICES = new Float32Array([
     // Front face
     -1.0, -1.0, 1.0, 1, 0, 0, // 0
@@ -54,32 +73,32 @@ exports.CUBE_INDICES = new Uint16Array([
 ]);
 exports.TABLE_VERTICES = new Float32Array([
     // Top face
-    -10.0, 0.0, -10.0, 0.2, 0.2, 0.2,
-    -10.0, 0.0, 10.0, 0.2, 0.2, 0.2,
-    10.0, 0.0, 10.0, 0.2, 0.2, 0.2,
-    10.0, 0.0, -10.0, 0.2, 0.2, 0.2,
+    -10.0, 0.0, -10.0, 0.3, 0.3, 0.3,
+    -10.0, 0.0, 10.0, 0.3, 0.3, 0.3,
+    10.0, 0.0, 10.0, 0.3, 0.3, 0.3,
+    10.0, 0.0, -10.0, 0.3, 0.3, 0.3,
 ]);
 exports.TABLE_INDICES = new Uint16Array([
     0, 1, 2,
     0, 2, 3, // top
 ]);
-function create3dPosColorInterleavedVao(gl, vertexBuffer, indexBuffer, posAttrib, colorAttrib) {
-    const vao = gl.createVertexArray();
+function create3DPosColorInterleavedVAO(webGL2, vertexBuffer, indexBuffer, positionAttribute, colorAttribute) {
+    const vao = webGL2.createVertexArray();
     if (!vao) {
-        (0, gl_utils_1.showError)('Failed to create VAO');
+        Utils.showError('Failed to create VAO');
         return null;
     }
-    gl.bindVertexArray(vao);
-    gl.enableVertexAttribArray(posAttrib);
-    gl.enableVertexAttribArray(colorAttrib);
+    webGL2.bindVertexArray(vao);
+    webGL2.enableVertexAttribArray(positionAttribute);
+    webGL2.enableVertexAttribArray(colorAttribute);
     // Interleaved format: (x, y, z, r, g, b) (all f32)
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.vertexAttribPointer(posAttrib, 3, gl.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 0);
-    gl.vertexAttribPointer(colorAttrib, 3, gl.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 3 * Float32Array.BYTES_PER_ELEMENT);
-    gl.bindBuffer(gl.ARRAY_BUFFER, null);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.bindVertexArray(null);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null); // Not sure if necessary, but not a bad idea.
+    webGL2.bindBuffer(webGL2.ARRAY_BUFFER, vertexBuffer);
+    webGL2.vertexAttribPointer(positionAttribute, 3, webGL2.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 0);
+    webGL2.vertexAttribPointer(colorAttribute, 3, webGL2.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 3 * Float32Array.BYTES_PER_ELEMENT);
+    webGL2.bindBuffer(webGL2.ARRAY_BUFFER, null);
+    webGL2.bindBuffer(webGL2.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    webGL2.bindVertexArray(null);
+    webGL2.bindBuffer(webGL2.ELEMENT_ARRAY_BUFFER, null); // Not sure if necessary, but not a bad idea.
     return vao;
 }
-exports.create3dPosColorInterleavedVao = create3dPosColorInterleavedVao;
+exports.create3DPosColorInterleavedVAO = create3DPosColorInterleavedVAO;

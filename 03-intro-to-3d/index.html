@@ -1,67 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WebGL - Intro to 3D</title> 
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+    <body>
 
-<html lang="en">
+        <div id="canvas-container">
+            <canvas id="demo-canvas">
+            </canvas>
+            <!-- <div id="bounding-box-selected"></div>
+            <div id="bounding-box-mouseover"></div>        -->
+        </div>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>WebGL 2023 - 03 Intro to 3D</title>
 
-  <style>
-    html,
-    head,
-    body {
-      margin: 0;
-      padding: 25px;
-      background-color: #2a2a2a;
-    }
+        <div id="control-box">
 
-    #demo-canvas {
-      width: 800px;
-      height: 800px;
+            <span class="control-box-title">CONTROLS</span>
 
-      /*
-       * WebGL trick: pick an offensive canvas background color to test
-       *  opacity/clearing bugs
-       */
-      background-color: #da6052;
+            <div class="parameter-controler">
+                <div style="display: inline-flex; justify-content: center; align-items: center; gap: 10px; margin: 8px;">
+                      
+                    <div style="display: flex; flex-direction: column;">
 
-      /* Help to illustrate the rasterizer's job: when artificially lowering resolution, show pixelated image */
-      image-rendering: crisp-edges;
-    }
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">play/pause</p> 
+                                <p class="parameter-units">animation</p> 
+                            </span> 
+                            <button><img id="play-pause-button" src="./assets/play.png" data-state="playing" alt="play-pause"></button>   
+                        </div>
 
-    /** CSS to make a nice little error box output for debugging (nice if you can't use devtools, e.g. mobile)  */
-    #error-box {
-      color: #fd8080;
-      font-weight: 500;
-      font-size: 18pt;
-      border: 1px solid white;
-      padding: 25px;
-      margin-top: 20px;
-    }
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">SPAWN TIME</p> 
+                                <p class="parameter-units">seconds</p> 
+                            </span> 
+                            <input id="SPAWN_TIME" type="number" min="0.00" max="2.00" value="1.00" step="0.005" class="argument-input">                
+                        </div>
 
-    .error-box-title {
-      color: #eee;
-      border-bottom: 1px solid gray;
-    }
-  </style>
-</head>
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">MAX COUNT</p> 
+                                <p class="parameter-units">shapes</p> 
+                            </span>                             
+                            <input id="MAX_SHAPE_COUNT" type="number" min="0" max="1000" value="25" step="1" class="argument-input">                
+                        </div>
 
-<body>
-  <canvas id="demo-canvas" width="800px" height="800px">
-    <!-- This message shows up only if the Canvas element isn't supported -->
-    HTML5 canvas not supported in your browser! These demos will not work.
-  </canvas>
+                        <div class="parameters-header">
+                            <span class="control-description" style="color: rgba(208, 195, 18, 0);">placeholder</span> 
+                            <div class="vertex-coordinate">MIN</div>
+                            <div class="vertex-coordinate">MAX</div>                         
+                        </div>
 
-  <!--
-    Doing a little error output in the HTML is nice when testing on mobile,
-     where you don't have access to console.log.
-  -->
-  <div id="error-box">
-    <span class="error-box-title">Error messages, if any, go in here.</span>
-  </div>
-  <script src="dist/intro-to-3d.js"></script>
-</body>
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">LIFESPAN</p> 
+                                <p class="parameter-units">seconds</p> 
+                            </span>                             
+                            <input id="MIN_SHAPE_TIME" type="number" min="0.00" max="10.00" value="2.00" step="0.05" class="argument-input">                
+                            <input id="MAX_SHAPE_TIME" type="number" min="0.00" max="10.00" value="10.00" step="0.05" class="argument-input">                
+                        </div>
+                        
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">SIZE</p> 
+                                <p class="parameter-units">pixels</p> 
+                            </span> 
+                            <input id="MIN_SHAPE_SIZE" type="number" min="0" max="1000" value="50" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_SIZE" type="number" min="0" max="1000" value="100" step="1" class="argument-input">                
+                        </div>
 
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">VELOCITY</p> 
+                                <p class="parameter-units">pixels/s</p> 
+                            </span>                            
+                            <input id="MIN_SHAPE_SPEED" type="number" min="0" max="2000" value="100" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_SPEED" type="number" min="0" max="2000" value="300" step="1" class="argument-input">                
+                        </div>
+
+                        <div class="parameters">
+                            <span class="control-description" style="color: rgb(205, 205, 199);">
+                                <p class="parameter-name">FORCE</p> 
+                                <p class="parameter-units">pixels/s²</p> 
+                            </span>     
+                            <input id="MIN_SHAPE_FORCE" type="number" min="0" max="1000" value="0" step="1" class="argument-input">                
+                            <input id="MAX_SHAPE_FORCE" type="number" min="0" max="1000" value="2" step="1" class="argument-input">                
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            
+            <div class="parameter-controler">
+                <span class="control-description" style="color: rgb(48, 48, 232);">Canvas Width</span>   
+                <input id="canvas-width" type="range" min="0" max="100" value="100" class="">
+                <div class="range-current-value">
+        
+                    <output id="width-in-pixels"></output>
+                    <output id="width-proportion"></output>
+
+                </div>
+            </div>
+            <div class="parameter-controler">
+                <span class="control-description" style="color: rgb(48, 48, 232);">Canvas Height</span>      
+                <input id="canvas-height" type="range" min="0" max="100" value="100" class="">
+                <div class="range-current-value">
+        
+                    <output id="height-in-pixels"></output>
+                    <output id="height-proportion"></output>
+
+                </div>
+            </div>
+            <div class="parameter-controler">
+                <span class="control-description" style="color: rgb(207, 106, 34);">X Origin</span>   
+                <input id="offsetX" type="range" min="-1.00" max="1.00" value="0.00" step="0.05" class="">
+                <div class="range-current-value">
+        
+                    <output id="origin-x-in-pixels">0px</output>
+                    <output id="origin-x-proportion">0%</output>
+
+                </div>
+            </div>
+            <div class="parameter-controler">
+                <span class="control-description" style="color: rgb(207, 106, 34);">Y Origin</span>      
+                <input id="offsetY" type="range" min="-1" max="1" value="0" step="0.05" class="">
+                <div class="range-current-value">
+        
+                    <output id="origin-y-in-pixels">0px</output>
+                    <output id="origin-y-proportion">0%</output>
+
+                </div>
+            </div>
+            <div class="parameter-controler">
+                <span class="control-description" style="color: rgb(207, 51, 34);">Scale</span>      
+                <input id="scale" type="range" min="0" max="10" value="1" class="">
+                <div class="range-current-value">
+        
+                    <output id="scale-display-value">1X</output>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div id="objects-box">
+
+            <span class="control-box-title">OBJECT EXPLORER</span>
+
+            <ol id="objects-list"></ol>
+            
+            <ul id="object-info-list">
+
+                <div class="object-info">
+                    <div>ID:</div>
+                    <output class="objects-info-value" id="object-id"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Type:</div>
+                    <output class="objects-info-value" id="object-type"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Time Remaining (seconds):</div>
+                    <output class="objects-info-value" id="object-time-remaining"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Position (pixels):</div>
+                    <output class="objects-info-value" id="object-position"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Velocity (pixels/second):</div>
+                    <output class="objects-info-value" id="object-speed"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Force (pixels/second²):</div>
+                    <output class="objects-info-value" id="object-force"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Size (pixels):</div>
+                    <output class="objects-info-value" id="object-size"></output>
+                </div>
+
+                <div class="object-info">
+                    <div>Number of Vertices:</div>
+                    <output class="objects-info-value" id="object-vertices"></output>
+                </div>
+                <!-- 
+                <div class="object-info">
+                    <div>Vertex Attribute Object:</div>
+                    <output class="objects-info-value" id="object-vao"></output>
+                </div> 
+                -->
+                <div class="object-info">
+                    <div>Is Alive?</div>
+                    <output class="objects-info-value" id="object-alive"></output>
+                </div>
+
+            </ul>
+
+
+        </div>
+
+        <div id="error-box">
+            <span class="error-box-title">Error log:</span>
+            <span id="error-description"></span>            
+        </div>
+
+        <div id="app-description-box">
+            <img src="./assets/webgl.png" width="100px">
+            <span class="app-box-title">WebGL Exercise:</span>
+            <span class="app-description">Intro to 3D</span>            
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type="module" src="./dist/bundle.js"></script>
+    </body>   
 </html>

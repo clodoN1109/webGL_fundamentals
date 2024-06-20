@@ -1,9 +1,31 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "CommonJS",
-    "strict": true,
-    "outDir": "./dist",
-    "sourceMap": true
-  },
+    "name": "webgl_motion_and_color",
+    "scripts": {
+        "build": "tsc --watch"
+    },
+    "dependencies": {
+        "typescript": "^5.4.5",
+        "gl-matrix": "^3.4.3",
+    },
+    "compilerOptions": {
+        "rootDirs": ["src"],
+        "noImplicitAny": false,
+        "target": "es6",
+        "types": ["jquery"],
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext"
+    },
+    
+    "files": [
+
+        "./src/main.ts",
+        "./src/config.ts",
+        "./src/utils.ts",
+        "./src/controls.ts",
+        "./src/geometry.ts",
+        "./src/objects.ts",
+
+    ],
+
+ 
 }

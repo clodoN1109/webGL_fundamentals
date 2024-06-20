@@ -81,28 +81,28 @@ let playOrPauseAnimation = function (button_image) {
 export let initialize = () => {
     document.getElementById('play-pause-button').addEventListener('click', (event) => { playOrPauseAnimation(event.target); });
     document.querySelectorAll('.argument-input').forEach(element => {
-        element.addEventListener('change', (event) => {
+        element.addEventListener('input', (event) => {
             let target = event.target;
             updateParameterValue(target.id, Number(target.value));
         });
     });
-    document.getElementById('canvas-width').addEventListener('change', (event) => {
+    document.getElementById('canvas-width').addEventListener('input', (event) => {
         let element = event.target;
         updateCanvasSize(element.value, undefined);
     });
-    document.getElementById('canvas-height').addEventListener('change', (event) => {
+    document.getElementById('canvas-height').addEventListener('input', (event) => {
         let element = event.target;
         updateCanvasSize(undefined, element.value);
     });
-    document.getElementById('offsetX').addEventListener('change', (event) => {
+    document.getElementById('offsetX').addEventListener('input', (event) => {
         let element = event.target;
         updateOffsetX(element.value);
     });
-    document.getElementById('offsetY').addEventListener('change', (event) => {
+    document.getElementById('offsetY').addEventListener('input', (event) => {
         let element = event.target;
         updateOffsetY(element.value);
     });
-    document.getElementById('scale').addEventListener('change', (event) => {
+    document.getElementById('scale').addEventListener('input', (event) => {
         let element = event.target;
         updateScale(element.value);
     });

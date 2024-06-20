@@ -106,35 +106,35 @@ export let initialize = () => {
     document.getElementById('play-pause-button').addEventListener('click', (event) => { playOrPauseAnimation(event.target); });    
     
     document.querySelectorAll('.argument-input').forEach(element => {
-        element.addEventListener('change', (event) => { 
+        element.addEventListener('input', (event) => { 
             let target = event.target as HTMLInputElement;
             updateParameterValue(target.id, Number(target.value)) });
     }); 
     
-    document.getElementById('canvas-width').addEventListener('change', (event) => {
+    document.getElementById('canvas-width').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
         updateCanvasSize(element.value, undefined)}
     );
     
-    document.getElementById('canvas-height').addEventListener('change', (event) => {
+    document.getElementById('canvas-height').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
         updateCanvasSize(undefined, element.value)}
     );
     
-    document.getElementById('offsetX').addEventListener('change', (event) => {
+    document.getElementById('offsetX').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
         updateOffsetX(element.value);
         }
     );
     
-    document.getElementById('offsetY').addEventListener('change', (event) => {
+    document.getElementById('offsetY').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
         updateOffsetY(element.value);  
     }
         
     );
     
-    document.getElementById('scale').addEventListener('change', (event) => {
+    document.getElementById('scale').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
         updateScale(element.value);
         }
