@@ -191,7 +191,7 @@ function shape(width, height, scale, offsetX, offsetY, triangleVertices) {
     webGL2.uniform2f(canvasSizeUniform, canvas.width, canvas.height);
     webGL2.uniform1f(shapeSizeUniform, scale);
     webGL2.uniform2f(shapeLocationUniform, offsetX, offsetY);
-    webGL2.drawArrays(webGL2.TRIANGLES, 0, 100);
+    webGL2.drawArrays(webGL2.TRIANGLES, 0, 3);
 
     return webGL2;
 
