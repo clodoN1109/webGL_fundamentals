@@ -1,4 +1,8 @@
+node_modules
 node_modules/
 01-shapes/node_modules/
 02-motion/node_modules/
 03-intro-to-3d/node_modules/
+01-shapes/node_modules
+02-motion/node_modules
+03-intro-to-3d/node_modules
