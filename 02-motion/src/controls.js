@@ -81,9 +81,14 @@ let playOrPauseAnimation = function (button_image) {
 export let initialize = () => {
     document.getElementById('play-pause-button').addEventListener('click', (event) => { playOrPauseAnimation(event.target); });
     document.querySelectorAll('.argument-input').forEach(element => {
-        element.addEventListener('input', (event) => {
+        element.addEventListener('change', (event) => {
             let target = event.target;
-            updateParameterValue(target.id, Number(target.value));
+            let value = Number(target.value);
+            // Precation against SPAWN_TIME < 0
+            if (value <= 0) {
+                value = 0.005;
+            }
+            updateParameterValue(target.id, Number(value));
         });
     });
     document.getElementById('canvas-width').addEventListener('input', (event) => {
