@@ -23,41 +23,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initialize = exports.updateCanvasSize = void 0;
+exports.initialize = exports.updateCanvasHeight = exports.updateCanvasWidth = void 0;
 const config_js_1 = require("./config.js");
-const Utils = __importStar(require("./utils.js"));
 const Main = __importStar(require("./main.js"));
 // Control Box functions
-let updateCanvasSize = function (width, height) {
+let updateCanvasWidth = function (width) {
     let canvas = document.getElementById("demo-canvas");
-    if (width === undefined) {
-        width = 100 * canvas.width / window.innerWidth;
-    }
-    else {
-        width = Number(width);
-    }
-    if (height === undefined) {
-        height = 100 * canvas.height / window.innerHeight;
-    }
-    else {
-        height = Number(height);
-    }
     config_js_1.config.CANVAS_WIDTH = window.innerWidth * width / 100;
-    config_js_1.config.CANVAS_HEIGHT = window.innerHeight * height / 100;
     //Update controls displayed value
     $('#width-in-pixels').html(String(config_js_1.config.CANVAS_WIDTH.toFixed(2)) + "px");
-    $('#width-proportion').html(String(width.toFixed(0)) + "%");
-    $('#height-in-pixels').html(String(config_js_1.config.CANVAS_HEIGHT.toFixed(2)) + "px");
-    $('#height-proportion').html(String(height.toFixed(0)) + "%");
-    try {
-        cancelAnimationFrame(Main.animationID);
-        Main.introTo3D(config_js_1.config.CANVAS_WIDTH, config_js_1.config.CANVAS_HEIGHT, canvas);
-    }
-    catch (e) {
-        Utils.showError(`Uncaught exception: ${e}`);
-    }
+    $('#width-proportion').html(String(width) + "%");
 };
-exports.updateCanvasSize = updateCanvasSize;
+exports.updateCanvasWidth = updateCanvasWidth;
+let updateCanvasHeight = function (height) {
+    let canvas = document.getElementById("demo-canvas");
+    config_js_1.config.CANVAS_HEIGHT = window.innerHeight * height / 100;
+    //Update controls displayed value
+    $('#height-in-pixels').html(String(config_js_1.config.CANVAS_HEIGHT.toFixed(2)) + "px");
+    $('#height-proportion').html(String(height) + "%");
+};
+exports.updateCanvasHeight = updateCanvasHeight;
 let playOrPauseAnimation = function (button_image) {
     if (button_image.attributes[2].nodeValue === 'playing') {
         button_image.attributes[2].nodeValue = 'paused';
@@ -74,11 +59,11 @@ let initialize = () => {
     document.getElementById('play-pause-button').addEventListener('click', (event) => { playOrPauseAnimation(event.target); });
     document.getElementById('canvas-width').addEventListener('input', (event) => {
         let element = event.target;
-        (0, exports.updateCanvasSize)(element.value, undefined);
+        (0, exports.updateCanvasWidth)(element.value);
     });
     document.getElementById('canvas-height').addEventListener('input', (event) => {
         let element = event.target;
-        (0, exports.updateCanvasSize)(undefined, element.value);
+        (0, exports.updateCanvasHeight)(element.value);
     });
     $('#width-in-pixels').html(String(config_js_1.config.CANVAS_WIDTH) + "px");
     $('#width-proportion').html(String(100) + "%");

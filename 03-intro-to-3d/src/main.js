@@ -29,9 +29,10 @@ const Geometry = __importStar(require("./geometry.js"));
 const Utils = __importStar(require("./utils.js"));
 const Objects = __importStar(require("./objects.js"));
 const gl_matrix_1 = require("gl-matrix");
+const config_js_1 = require("./config.js");
 Controls.initialize();
 exports.animationStatus = ['play'];
-function introTo3D(width, height, canvas) {
+function introTo3D(canvas) {
     //---------------------------------------------------------------------------------
     // Getting WebGL 2 context object
     let webGL2 = canvas.getContext('webgl2');
@@ -87,8 +88,10 @@ function introTo3D(width, height, canvas) {
         cameraAngle += dt * gl_matrix_1.glMatrix.toRadian(10);
         const cameraX = 3 * Math.sin(cameraAngle);
         const cameraZ = 3 * Math.cos(cameraAngle);
-        canvas.width = width;
-        canvas.height = height;
+        canvas.style.width = `${config_js_1.config.CANVAS_WIDTH}px`;
+        canvas.style.height = `${config_js_1.config.CANVAS_HEIGHT}px`;
+        canvas.width = config_js_1.config.CANVAS_WIDTH * devicePixelRatio;
+        canvas.height = config_js_1.config.CANVAS_HEIGHT * devicePixelRatio;
         webGL2.clearColor(0, 0, 0, 0);
         webGL2.clear(webGL2.COLOR_BUFFER_BIT | webGL2.DEPTH_BUFFER_BIT);
         webGL2.enable(webGL2.DEPTH_TEST);
@@ -115,7 +118,7 @@ function introTo3D(width, height, canvas) {
 exports.introTo3D = introTo3D;
 exports.canvas = document.getElementById('demo-canvas');
 try {
-    introTo3D(window.innerWidth, window.innerHeight, exports.canvas);
+    introTo3D(exports.canvas);
 }
 catch (e) {
     Utils.showError(`Uncaught exception: ${e}`);

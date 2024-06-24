@@ -3,13 +3,14 @@ import * as Geometry from './geometry.js';
 import * as Utils from './utils.js'
 import * as Objects from './objects.js'; 
 import { glMatrix, mat4, vec3 } from 'gl-matrix';
+import { config } from './config.js';
 
 Controls.initialize();
 
 export let animationID;
 export let animationStatus = ['play'];
 
-export function introTo3D(width, height, canvas) {
+export function introTo3D(canvas : HTMLCanvasElement) {
 
     //---------------------------------------------------------------------------------
     // Getting WebGL 2 context object
@@ -95,9 +96,12 @@ export function introTo3D(width, height, canvas) {
         const cameraX = 3 * Math.sin(cameraAngle);
         const cameraZ = 3 * Math.cos(cameraAngle);
 
-        canvas.width = width;
-        canvas.height = height;
+        canvas.style.width = `${config.CANVAS_WIDTH}px`;
+        canvas.style.height = `${config.CANVAS_HEIGHT}px`; 
 
+        canvas.width = config.CANVAS_WIDTH * devicePixelRatio;
+        canvas.height = config.CANVAS_HEIGHT * devicePixelRatio;
+        
         webGL2.clearColor(0, 0, 0, 0);
         webGL2.clear(webGL2.COLOR_BUFFER_BIT | webGL2.DEPTH_BUFFER_BIT);
         webGL2.enable(webGL2.DEPTH_TEST);
@@ -150,7 +154,7 @@ export function introTo3D(width, height, canvas) {
 export const canvas= document.getElementById('demo-canvas') as HTMLCanvasElement;
 
 try {
-    introTo3D(window.innerWidth, window.innerHeight, canvas);
+    introTo3D(canvas);
 }
 catch(e) {
     Utils.showError(`Uncaught exception: ${e}`);
