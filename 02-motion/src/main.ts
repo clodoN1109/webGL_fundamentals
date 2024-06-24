@@ -17,7 +17,7 @@ export let animationStatus = ['play'];
 
 //---------------------------------------------------------------------------------
 
-export function motionDemonstration(width, height, canvas) {
+export function motionDemonstration(canvas : HTMLCanvasElement) {
 
     let webGL2 = canvas.getContext('webgl2');
     //---------------------------------------------------------------------------------
@@ -123,8 +123,11 @@ export function motionDemonstration(width, height, canvas) {
             shape.update(dt);            
         });
 
-        canvas.width = width;
-        canvas.height = height;
+        canvas.style.width = `${config.CANVAS_WIDTH}px`; 
+        canvas.style.height = `${config.CANVAS_HEIGHT}px`; 
+
+        canvas.width = config.CANVAS_WIDTH * devicePixelRatio;
+        canvas.height = config.CANVAS_HEIGHT * devicePixelRatio;
 
         webGL2.clearColor(0.2, 0.2, 0.1, 0);
         webGL2.clear(webGL2.COLOR_BUFFER_BIT | webGL2.DEPTH_BUFFER_BIT);
@@ -154,7 +157,7 @@ export function motionDemonstration(width, height, canvas) {
 export const canvas= document.getElementById('demo-canvas') as HTMLCanvasElement;
 
 try {
-    motionDemonstration(window.innerWidth, window.innerHeight, canvas);
+    motionDemonstration(canvas);
 }
 catch(e) {
     utils.showError(`Uncaught exception: ${e}`);

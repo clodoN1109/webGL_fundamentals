@@ -16,7 +16,6 @@
     "files": [
         "./src/config.ts",
         "./src/controls.ts",
-        "./src/custom-types.ts",
         "./src/main.ts",
         "./src/utils.ts",
         "./src/shapes.ts",

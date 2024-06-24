@@ -11,55 +11,40 @@ let updateTriangle = function(new_value, vertex_number, coordinate_number) {
     Shapes.triangleVertices[vertex_number * 2 + coordinate_number] = new_value;
     try {
         cancelAnimationFrame(Main.animationID);
-        Main.motionDemonstration(config.CANVAS_WIDTH, config.CANVAS_HEIGHT, Main.canvas);
+        Main.motionDemonstration(Main.canvas);
     } 
     catch (e) {
         utils.showError(`Uncaught exception: ${e}`);
     }
 }
-export let updateCanvasSize = function(width, height) {
+export let updateCanvasWidth = function(width) {
     
     let canvas = document.getElementById("demo-canvas") as HTMLCanvasElement;
-    if (width === undefined) {
-        width = 100 * canvas.width / window.innerWidth;
-    }
-    if (height === undefined) {
-        height = 100 * canvas.height / window.innerHeight;
-    }
 
     width = Number(width);
-    height = Number(height);
 
     config.CANVAS_WIDTH = window.innerWidth * width / 100;
-    config.CANVAS_HEIGHT = window.innerHeight * height / 100;
-
-   
 
     //Update controls displayed value
     $('#width-in-pixels').html(String(config.CANVAS_WIDTH.toFixed(2)) + "px");
     $('#width-proportion').html(String(width.toFixed(0)) + "%");
+
+}
+
+export let updateCanvasHeight = function(height) {
+    
+    let canvas = document.getElementById("demo-canvas") as HTMLCanvasElement;
+
+    height = Number(height);
+
+    config.CANVAS_HEIGHT = window.innerHeight * height / 100;
+
+    //Update controls displayed value
     $('#height-in-pixels').html(String(config.CANVAS_HEIGHT.toFixed(2)) + "px");
     $('#height-proportion').html(String(height.toFixed(0)) + "%")
 
-    try {
-        
-        Main.interval_ID_UpdateParametersDisplay_List.forEach(intervalID => {
-            clearInterval(intervalID);                    
-        });
-
-        Main.interval_ID_UpdateBoundingBox_List.forEach(intervalID => {
-            clearInterval(intervalID);                    
-        });
-
-        $('#objects-list').empty();
-
-        cancelAnimationFrame(Main.animationID);
-        Main.motionDemonstration(config.CANVAS_WIDTH, config.CANVAS_HEIGHT, Main.canvas);
-    }
-    catch (e) {
-        utils.showError(`Uncaught exception: ${e}`);
-    }
 }
+
 let updateOffsetX = function(new_offsetX) {
 
     new_offsetX = Number(new_offsetX);
@@ -120,12 +105,12 @@ export let initialize = () => {
     
     document.getElementById('canvas-width').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
-        updateCanvasSize(element.value, undefined)}
+        updateCanvasWidth(element.value)}
     );
     
     document.getElementById('canvas-height').addEventListener('input', (event) => {
         let element = event.target as HTMLInputElement;
-        updateCanvasSize(undefined, element.value)}
+        updateCanvasHeight(element.value)}
     );
     
     document.getElementById('offsetX').addEventListener('input', (event) => {

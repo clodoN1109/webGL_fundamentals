@@ -132,7 +132,7 @@ export function generateNewShapeParameters(VAOList : VAO[]) : shapeParameters {
         Math.sin(forceAngle) * forceSpeed * (2/config.CANVAS_WIDTH),
         Math.cos(forceAngle) * forceSpeed * (2/config.CANVAS_HEIGHT)
     ];
-    const size = config.SCALE * getRandomInRange(config.MIN_SHAPE_SIZE, config.MAX_SHAPE_SIZE);
+    const size = config.SCALE * devicePixelRatio * getRandomInRange(config.MIN_SHAPE_SIZE, config.MAX_SHAPE_SIZE);
     const timeRemaining = getRandomInRange(config.MIN_SHAPE_TIME, config.MAX_SHAPE_TIME);
     const attributeObjectIndex = Math.floor(getRandomInRange(0, VAOList.length));
     const geometry : VAO = VAOList[attributeObjectIndex];
