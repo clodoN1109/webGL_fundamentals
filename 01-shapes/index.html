@@ -23,18 +23,18 @@
                             <div class="vertex-coordinate">Y</div>                         </div>
                         <div class="coordinates">
                             <span class="control-description" style="color: rgb(208, 195, 18);">Vertex A</span> 
-                            <input onchange="{updateTriangle(event.target.value, 0, 0)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">                
-                            <input onchange="{updateTriangle(event.target.value, 0, 1)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">
+                            <input oninput="{updateTriangle(event.target.value, 0, 0)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">                
+                            <input oninput="{updateTriangle(event.target.value, 0, 1)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">
                         </div>
                         <div class="coordinates">
                             <span class="control-description" style="color: rgb(208, 195, 18);">Vertex B</span> 
-                            <input onchange="{updateTriangle(event.target.value, 1, 0)}" type="number" min="-1.00" max="1.00" value="0.50" step="0.05" class="vertex-coordinate">                
-                            <input onchange="{updateTriangle(event.target.value, 1, 1)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">
+                            <input oninput="{updateTriangle(event.target.value, 1, 0)}" type="number" min="-1.00" max="1.00" value="0.50" step="0.05" class="vertex-coordinate">                
+                            <input oninput="{updateTriangle(event.target.value, 1, 1)}" type="number" min="-1.00" max="1.00" value="-0.50" step="0.05" class="vertex-coordinate">
                         </div>
                         <div class="coordinates">
                             <span class="control-description" style="color: rgb(208, 195, 18);">Vertex C</span> 
-                            <input onchange="{updateTriangle(event.target.value, 2, 0)}" type="number" min="-1.00" max="1.00" value="-0.00" step="0.05" class="vertex-coordinate">                
-                            <input onchange="{updateTriangle(event.target.value, 2, 1)}" type="number" min="-1.00" max="1.00" value="0.50" step="0.05" class="vertex-coordinate">
+                            <input oninput="{updateTriangle(event.target.value, 2, 0)}" type="number" min="-1.00" max="1.00" value="-0.00" step="0.05" class="vertex-coordinate">                
+                            <input oninput="{updateTriangle(event.target.value, 2, 1)}" type="number" min="-1.00" max="1.00" value="0.50" step="0.05" class="vertex-coordinate">
                         </div>
                         
 
@@ -47,23 +47,23 @@
 
             <div class="parameter-controler">
                 <span class="control-description" style="color: blue;">Canvas Width</span>   
-                <input onchange="{updateCanvasSize(event.target.value, undefined)}" type="range" min="0" max="100" value="100" class="">
+                <input oninput="{updateCanvasSize(event.target.value, undefined)}" type="range" min="0" max="100" value="100" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: blue;">Canvas Height</span>      
-                <input onchange="{updateCanvasSize(undefined, event.target.value)}" type="range" min="0" max="100" value="100" class="">
+                <input oninput="{updateCanvasSize(undefined, event.target.value)}" type="range" min="0" max="100" value="100" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 106, 34);">X Offset</span>   
-                <input onchange="{updateOffsetX(event.target.value)}" type="range" min="0" max="100" value="50" class="">
+                <input oninput="{updateOffsetX(event.target.value)}" type="range" min="0" max="100" value="50" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 106, 34);">Y Offset</span>      
-                <input onchange="{updateOffsetY(event.target.value)}" type="range" min="0" max="100" value="50" class="">
+                <input oninput="{updateOffsetY(event.target.value)}" type="range" min="0" max="100" value="50" class="">
             </div>
             <div class="parameter-controler">
                 <span class="control-description" style="color: rgb(207, 51, 34);">Scale</span>      
-                <input onchange="{updateScale(event.target.value)}" type="range" min="0" max="1000" value="100" class="">
+                <input oninput="{updateScale(event.target.value)}" type="range" min="0" max="1000" value="100" class="">
             </div>
 
         </div>

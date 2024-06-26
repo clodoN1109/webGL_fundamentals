@@ -9,13 +9,13 @@
   "compilerOptions": {
       "rootDirs": ["./"],
       "noImplicitAny": false,
-      "target": "es6",      
+      "target": "es6",
   },
 
   "exclude": ["01-shapes", "02-motion-and-color", "03-intro-to-3D"],
   
   "files": [
-      "./main.ts"
+      "./main.ts",
   ],
 
 }
