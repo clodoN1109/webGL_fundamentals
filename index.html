@@ -7,46 +7,10 @@
     
     <body>
 
-        <canvas id="canvas" style="position: absolute; z-index: 0; backdrop-filter: blur(50px);"></canvas>
+        <canvas id="canvas_01"></canvas>
+        <canvas id="canvas_02"></canvas>
 
-        <div class="container-container">
-            <div class="horizontal-bar-container">
-            
-                <a href="./01-shapes/index.html" class="window-link">
-                    <img src="./assets/shapes.gif" alt="Shapes and Colors"/>
-                    <p class="link-title">Shapes and Colors</p>
-                    <div class="link-description">
-                        <ul>
-                            <li>Implement shapes and colors.</li>
-                        </ul>
-                    </div>
-                </a>
-    
-                <a href="./02-motion/index.html" class="window-link">
-                    <img src="./assets/motion.gif" alt="Motion"/>
-                    <p class="link-title">Motion</p>
-                    <div class="link-description">
-                        <ul>
-                            <li>Objects with position, velocity and force.</li>
-                            <li>Well defined units.</li>
-                        </ul>
-                    </div>
-                </a>
-    
-                <a href="./03-intro-to-3d/index.html" class="window-link">
-                    <img src="./assets/3D.gif" alt="3D Intro"/>
-                    <p class="link-title">3D Intro</p>
-                    <div class="link-description">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </a>
-    
-            </div>
-        </div>
-        
+        <div id="lessons-app"></div>
 
         <div id="app-description-box">
             <img src="./assets/webgl.png" width="100px" alt="webGL">
@@ -56,8 +20,19 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/proton-engine/6.0.3/proton.min.js" integrity="sha512-FMPSbts85MlLgQX0qop/Vc43JHosqb+ZyUT6yzMwStSKQ0a8qIaUs8kleOcpfqMxIFiXEvNOoDUbHk24UFbmlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <script type="importmap">
+            {
+              "imports": {
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+              }
+            }
+        </script>
+
+        <script src="./index.js" type="module"></script>
+
         <script src="./background-animation.js"></script>
-        <script src="./main.js"></script>
+
  
     </body>   
 </html>

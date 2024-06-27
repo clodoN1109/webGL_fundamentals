@@ -11,6 +11,8 @@ html, body {
     background-color: #222020;
 
     font-family: 'Courier New', Courier, monospace;
+    
+    cursor: default;
 
 }
 
@@ -22,16 +24,24 @@ body::before {
     height: 100%;
        
     /* background-image: linear-gradient(90deg, rgba(218, 218, 218, 0.904), rgba(199, 199, 199, 0.801)); */
-    background-image: url(./assets/bg.jpg);
-    background-size: cover;
+    /* background-image: url(./assets/bg.jpg);
+    background-size: cover; */
 
 
 }
 
+#canvas_01 {
+    position: absolute; z-index: 1; backdrop-filter: blur(40px);
+}
+
+#canvas_02 {
+    position: absolute; z-index: 0;
+}
 
 #app-description-box {
     
     position: absolute;
+    z-index: 2;
 
     display: flex;
     flex-direction: column;
@@ -67,9 +77,10 @@ body::before {
     font-weight: 700;
 }
 
-.container-container {
+#lessons-app {
 
     position: absolute;
+    z-index: 2;
     top: 20vh;
 
     width: 100vw;
@@ -80,11 +91,11 @@ body::before {
 
 }
 
-.horizontal-bar-container {
+.horizontal-bar {
     
     
     width: 90%;
-    height: max-content;
+    height: 400px;
     
     margin: 0;
     padding: 0px 60px;
@@ -98,92 +109,148 @@ body::before {
     align-items: flex-start;
     
 
-    gap: 50px;
+    gap: 1px;
 
 }
 
-.window-link {
+.card {
 
     position: relative;
     top: 0;
 
-    width: 300px;
-    min-height: 300px;
+    height: 100%;
+    width: max-content;
 
-    padding: 20px;
-    margin: 10px;
+    padding: 0px;
+    margin: 1px;
 
-    border-style: solid;
+    /* border-style: solid;
     border-width: 3px;
     border-radius: 0px;
-    border-color: rgba(222, 222, 222, 0);
+    border-color: rgba(222, 222, 222, 0); */
 
-    /* backdrop-filter: blur(10px); */
-
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
     align-items: center;
     justify-content: flex-start;    
 
     color: rgba(226, 226, 226, 0.815);
     text-decoration: none;
 
-    cursor: pointer;
-
     transition: all 0.2s;
 }
 
-.window-link:hover {
+.card:hover {
     
-    scale: 1.02;
+    box-shadow: 0vw 0vw 1vw 0.2vw rgba(255, 110, 69, 0.555);   
+    /* scale: 1.02; */
     /* border-color: rgba(222, 222, 222, 0.6); */
 }
 
-.window-link img {
-    width: 200px;
-    height: 200px;
+.card-cover {
 
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 8px;
-    border-color:  rgba(141, 40, 40, 0.758);
+    height: 100%;
+    width: 250px;
+
+    /* borders-style: solid; */
+    /* border-width: 3px; */
+    /* border-radius: 8px; */
+    /* border-color:  rgba(141, 40, 40, 0.758); */
     
+    box-shadow: 0.3vw 0.5vw 0.6vw 0vw rgba(26, 26, 26, 0.788);   
+
 }
 
-.link-title {
-    
-    width: max-content;
-    min-width: 160px;
+.card-extension {
 
-    padding: 6px 6px;
-    border-radius: 8px;
+    height: 100%;
+    width: 0;
 
-    text-align: center;
-    text-justify: center;
+    margin: 20px 1px;
+    padding: 0px;
 
-    background-color: rgba(141, 40, 40, 0.758);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 
-    font-weight: 600;
+    justify-content: space-evenly;
+
+    opacity: 0;
+
 }
 
-.link-description {
+.card-title {
     
     width: 100%;
 
-    padding: 4px 0;
+    padding: 6px 6px;
+    margin-bottom: 0;
+    border-radius: 8px;
 
     text-align: center;
-    text-justify: center;
+
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.card-description {
+    
+    width: 100%;
+
+    padding: 4px 10px 4px 30px;
+
+    text-align: left;
+
     font-size: small;
     font-weight: 300;
 
-    text-decoration: underline;
+    /* text-decoration: underline;
     text-decoration-color: rgba(141, 40, 40, 0.758);
     text-decoration-thickness: 3px;
-    text-decoration-skip-ink: none;
+    text-decoration-skip-ink: none; */
+}
+
+.links-container {
+    display: block;
+}
+
+.card-links {
+
+    width: 100%;
+
+    display: inline-flex;
+    justify-content: center;
+    gap: 20px;
+
+}
+
+.card-links img{
+    height: 35px;
+    border-radius: 6px;
+
+    opacity: 0.8;
+}
+
+.card-links img:hover{
+    scale: 1.05;
+    opacity: 1;
+    
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-description {
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 14px;
+    color: inherit;
 }
 
 li {
-    text-align: left;
-    margin: 5px 0;
+    margin: 4px 0;
 }
