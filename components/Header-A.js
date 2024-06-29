@@ -11,7 +11,7 @@ export default{
             </div>
 
             <div id="header-top-right">
-                <img class="header-img" src="./assets/clodome_white_circular_cut.png" alt="">
+                <img class="header-img" src="./assets/world.png" alt="">
             </div>
 
         

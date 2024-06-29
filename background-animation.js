@@ -29,7 +29,7 @@ function drawrandomParticles(canvas, hexColor, maxRadius, numberOfParticles) {
     )
   );
   
-  emitter.addBehaviour(new Proton.Alpha(Proton.getSpan(0.2, 0.9)));
+  emitter.addBehaviour(new Proton.Alpha(Proton.getSpan(0.05, 0.7)));
   emitter.addBehaviour(new Proton.Color(hexColor));
   emitter.addBehaviour(
     new Proton.CrossZone(
@@ -66,7 +66,7 @@ let canvas_01 = document.getElementById('canvas_01');
 let canvas_02 = document.getElementById('canvas_02');
 
 let numberOfParticles = Math.min(parseInt(window.innerWidth / (1000 / 145)), 400);
-drawrandomParticles(canvas_01, "#ff0000", 4, numberOfParticles);
+drawrandomParticles(canvas_01, "#ffffff", 2, numberOfParticles);
 
 numberOfParticles = 50;
 drawrandomParticles(canvas_02, "#603311", 120, numberOfParticles);
