@@ -55,7 +55,9 @@ export default{
                             </div>
                         </li>
 
-                        <li class="dropdown"><img class="dropdown-image" src="./assets/dropdown.png">
+                        <li class="dropdown">
+                            <img class="dropdown-image" src="./assets/dropdown.png">
+                        
                             <ul class="dropdown-list">
                                 <li><a href="" title="">Help</a></li>
                                 <li><a href="" title="">Licenses</a></li>
