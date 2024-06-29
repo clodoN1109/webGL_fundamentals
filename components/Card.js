@@ -10,15 +10,16 @@ export default {
 
         extendCard(card) {
 
+            let sectionID = card.parentNode.id;
             let cardID = card.id;
-        
-            let cardExtension = $(`#${cardID}`).find('.card-extension')[0];
+
+            let cardExtension = $(`#${sectionID}`).find(`#${cardID}`).find('.card-extension')[0];
             cardExtension.style.transition = `${this.animationDuration}s width, ${this.animationDuration}s ${this.animationDuration/2}s opacity`;
             cardExtension.style.opacity = 1;
             cardExtension.style.width = '30vw';
             
             let cardCover = card.getElementsByClassName('card-cover')[0];
-            cardCover.src = `./assets/${card.id}.gif`;
+            cardCover.src = `./assets/${cardID}.gif`;
             cardCover.style.opacity = 1;
 
             cardExtension.childNodes.forEach(element => {
@@ -26,10 +27,11 @@ export default {
             });;
         },
         shrinkCard(card) {
-
+            
+            let sectionID = card.parentNode.id;
             let cardID = card.id;
 
-            let cardExtension = $(`#${cardID}`).find('.card-extension')[0];
+            let cardExtension = $(`#${sectionID}`).find(`#${cardID}`).find('.card-extension')[0];
             cardExtension.style.transition = `${this.animationDuration/2}s ${this.animationDuration/2}s width, ${this.animationDuration}s opacity`;
             cardExtension.style.opacity = 0;
             cardExtension.style.width = '0';
@@ -42,7 +44,7 @@ export default {
             }, this.animationDuration);
             
             let cardCover = card.getElementsByClassName('card-cover')[0];
-            cardCover.src = `./assets/${card.id}.png`;
+            cardCover.src = `./assets/${cardID}.png`;
             cardCover.style.opacity = 0.75;
 
         },
@@ -58,13 +60,13 @@ export default {
 
     props: {
 
-        cardContent: { type: Object, required: true },
+        card: { type: Object, required: true },
 
     },
 
     computed: {
         imgURL () {
-            return `./assets/${this.cardContent.id}.png`;
+            return `./assets/${this.card.id}.png`;
         },
         
 
@@ -73,32 +75,32 @@ export default {
     template:
         /*html*/
         `
-        <div class="card" :id="cardContent.id" @mouseenter="extendCard($event.target)" @mouseleave="shrinkCard($event.target)">
+        <div class="card" :id="card.id" @mouseenter="extendCard($event.target)" @mouseleave="shrinkCard($event.target)">
 
             <img class="card-cover" :src="imgURL" alt="Shapes and Colors"/>
 
             <div class="card-extension" >
             
-                <p class="card-title">{{ this.cardContent.title }}</p>
+                <p class="card-title">{{ this.card.title }}</p>
             
                 <ul class="card-description">
-                    <sentence v-for="sentence in cardContent.description" :sentence="sentence"></sentence>
+                    <sentence v-for="sentence in card.description" :sentence="sentence"></sentence>
                 </ul>
 
                 <div class="links-container">
 
                     <div class="card-links">
 
-                        <a target="_blank" :href="cardContent.links.repository" > 
+                        <a target="_blank" :href="card.links.repository" > 
                             <img class="link-img" src="./assets/github.png" alt="Source Code" @mouseenter="updateLinkDescription($event.target)" @mouseleave="clearLinkDescription($event.target)">
                         </a>
-                        <a target="_blank" :href="cardContent.links.video" > 
+                        <a target="_blank" :href="card.links.video" > 
                             <img class="link-img" src="./assets/youtube.png" alt="Video Tutorials" @mouseenter="updateLinkDescription($event.target)" @mouseleave="clearLinkDescription($event.target)">
                         </a>
-                        <a target="_blank" :href="cardContent.links.article" > 
+                        <a target="_blank" :href="card.links.article" > 
                             <img class="link-img" src="./assets/medium.png" alt="Text Tutorials" @mouseenter="updateLinkDescription($event.target)" @mouseleave="clearLinkDescription($event.target)">
                         </a>
-                        <a target="_blank" :href="cardContent.links.online_demo" > 
+                        <a target="_blank" :href="card.links.online_demo" > 
                             <img class="link-img" src="./assets/web.png" alt="Online Demo" @mouseenter="updateLinkDescription($event.target)" @mouseleave="clearLinkDescription($event.target)">
                         </a>
 
