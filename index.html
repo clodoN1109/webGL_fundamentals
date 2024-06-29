@@ -3,44 +3,82 @@
 
     <head>
         <title>The Art of Computing</title> 
-        <link rel="stylesheet" type="text/css" href="navbar.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">    
         <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
 
     <body>
 
-        <canvas id="canvas_01"></canvas>
-        <canvas id="canvas_02"></canvas>
+        <header>
 
-        <div id="learning-app"></div>
-
-        <div id="resources" class="band-container">
-            <div class="band-display">
-                <div class="inline-flex-container">
-                    <div class="band-title-box">
-                        <h6>recommended</h6>
-                        <div class="band-title">RESOURCES</div>
-                        <h6>from other creators</h6>
-                    </div>
-
-                    <div class="recommended-resources">
-                        <div class="band-button-container">
-                            <a class="rectangular-button-container" target="_blank" href="https://webgl2fundamentals.org/">
-                                <img alt="WebGL2 Fundamentals - Main page" class="resource-image" src="./assets/resources_01.png">
-                            </a>
-                            <div class="button-name">webgl2fundamentals.org</div>
-                        </div>
-                        <div class="band-button-container">
-                            <a class="rectangular-button-container" target="_blank" href="https://www.scratchapixel.com/">
-                                <img alt="Scratchpixel" class="resource-image" src="./assets/resources_02.png">
-                            </a>
-                            <div class="button-name">scratchapixel.com</div>
-                        </div>
-                    </div>
+            <div id="header-top">
+    
+                <div id="header-top-left">
+                    <img class="header-img" src="./assets/turtle-alpha.png" alt="Coding with Clodo site logo">
                 </div>
+    
+                <div id="header-top-right">
+                </div>
+    
+            
             </div>
+    
+            <div id="header-bottom">
+            
+                <div id="page-bottom-left">
+    
+                    <p id="page-title">UNDER THE HOOD</p>
+    
+                    <div id="social-links-box">
+    
+                        <a href="" > 
+                            <img class="social-img" src="./assets/github.png" alt="Project's Source Code">
+                        </a>
+                        <a href="" > 
+                            <img class="social-img" src="./assets/youtube.png" alt="Video Tutorials">
+                        </a>
+                        <a href="" > 
+                            <img class="social-img" src="./assets/medium.png" alt="Text Tutorials">
+                        </a>
+    
+                    </div>
+    
+                </div>
+    
+                <div id="page-bottom-right"></div>
+        
+            </div>
+
+            <div id="library-selection-box">
+
+                <span class="library-box-title">Learn</span>
+        
+                <p id="skill">
+                    Computer Graphics
+                </p>            
+                
+                <span class="library-box-title">with</span>         
+                
+                <p id="technology">
+                    WebGL2
+                </p>            
+        
+            </div>
+    
+    
+        </header>
+
+        <div id="content-list">
+            
+            Contents:
+            <ol> 
+                <a href="./01_shapes/index.html"><li>SHAPES AND COLORS</a></li>
+                <a href="./02_motion/index.html"><li> MOTION </a></li>
+                <a href="./03_3D/index.html"><li> 3D PRINCIPLES </a></li>
+            </ol>
         </div>
+
+
 
         <footer id="footer">
 
@@ -58,33 +96,12 @@
                     </div>
                 </a>
 
-                <div class="powered-by">
-                    <div style="margin-right: 1vw; min-width: fit-content;">Powered by</div>
-                    <div class="power-ups">
-                        <a target="_blank" href="https://vuejs.org/"><img alt="vuejs.org webpage" src="./assets/vuejs.png" style="background-color: rgba(245, 231, 231, 0);"></a>
-                        <a target="_blank" href="https://drawcall.github.io/Proton/"><img alt="Proton library webpage" src="./assets/protonJS.png" style="background-color: rgba(245, 231, 231, 0);"></a>
-                    </div>
-                </div>
-
 
             </div>
 
         </footer>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/proton-engine/6.0.3/proton.min.js" integrity="sha512-FMPSbts85MlLgQX0qop/Vc43JHosqb+ZyUT6yzMwStSKQ0a8qIaUs8kleOcpfqMxIFiXEvNOoDUbHk24UFbmlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         
-        <script type="importmap">
-            {
-              "imports": {
-                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-              }
-            }
-        </script>
-
         <script src="./index.js" type="module"></script>
-        <script src="./background-animation.js"></script>
-
  
     </body>   
 </html>
